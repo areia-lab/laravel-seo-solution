@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Areia Lab – Laravel SEO Solution Docs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <header class="bg-white shadow">
+    <div class="max-w-5xl mx-auto p-6">
+      <h1 class="text-2xl font-bold">Areia Lab – Laravel SEO Solution</h1>
+      <p class="text-gray-600">SEO management package with Tailwind UI backend, OpenGraph & Twitter support, and Blade helpers.</p>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto p-6 space-y-8">
+    <section class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-xl font-semibold mb-3">Install</h2>
+      <ol class="list-decimal ml-6 space-y-2">
+        <li>Add local path repo (optional for local dev):
+<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>"repositories": [
+  { "type": "path", "url": "packages/areia-lab/laravel-seo-solution" }
+]</code></pre>
+        </li>
+        <li>Require the package:
+<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>composer require areia-lab/laravel-seo-solution:*</code></pre>
+        </li>
+        <li>Publish & migrate:
+<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>php artisan vendor:publish --tag=seo-solution-config
+php artisan vendor:publish --tag=seo-solution-views
+php artisan migrate
+php artisan storage:link</code></pre>
+        </li>
+      </ol>
+    </section>
+
+    <section class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-xl font-semibold mb-3">Admin Panel</h2>
+      <p>Visit <code>/admin/seo</code> (or your configured prefix) to manage SEO records including uploads for OG/Twitter images.</p>
+      <ul class="list-disc ml-6">
+        <li>Type: <code>global</code>, <code>page</code>, <code>model</code></li>
+        <li>Meta: title, description, keywords, canonical</li>
+        <li>OpenGraph: title, description, type, image</li>
+        <li>Twitter: title, description, card, image</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-xl font-semibold mb-3">Render in Blade</h2>
+      <p>Use Blade directives:</p>
+<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>@seoGlobal
+@seoPage('contact')
+@seoModel($post)</code></pre>
+      <p>Or fluent API:</p>
+<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>{!! app('seo')->global()->render() !!}
+{!! app('seo')->forPage('contact')->render() !!}
+{!! app('seo')->forModel($post)->render() !!}</code></pre>
+      <p>Place the output inside your page <code>&lt;head&gt;</code>.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-xl font-semibold mb-3">Seeder</h2>
+<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>php artisan db:seed --class="AreiaLab\LaravelSeoSolution\Database\Seeders\SeoMetaSeeder"</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-xl font-semibold mb-3">Configuration</h2>
+<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>return [
+  'route' => [
+    'prefix' => 'admin/seo',
+    'middleware' => ['web','auth']
+  ],
+  'disk' => 'public',
+  'defaults' => ['title_suffix' => '']
+];</code></pre>
+      <p>Run <code>php artisan storage:link</code> so uploaded images are publicly accessible URLs.</p>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-500 py-8">
+    &copy; Areia Lab – Laravel SEO Solution
+  </footer>
+</body>
+</html>

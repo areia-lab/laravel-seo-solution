@@ -1,0 +1,24 @@
+{
+  "name": "areia-lab/laravel-seo-solution",
+  "description": "SEO management package with Tailwind UI backend, OpenGraph & Twitter, and Blade helpers.",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": "^8.1",
+    "illuminate/support": "^10.0|^11.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AreiaLab\\LaravelSeoSolution\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AreiaLab\\LaravelSeoSolution\\SeoServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
