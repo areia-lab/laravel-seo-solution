@@ -1,72 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Areia Lab – Laravel SEO Solution Docs</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50 text-gray-900">
+  <!-- Header -->
   <header class="bg-white shadow">
     <div class="max-w-5xl mx-auto p-6">
       <h1 class="text-2xl font-bold">Areia Lab – Laravel SEO Solution</h1>
-      <p class="text-gray-600">SEO management package with Tailwind UI backend, OpenGraph & Twitter support, and Blade helpers.</p>
+      <p class="text-gray-600">SEO management package with Tailwind UI backend, OpenGraph & Twitter support, and Blade
+        helpers.</p>
     </div>
   </header>
 
   <main class="max-w-5xl mx-auto p-6 space-y-8">
+    <!-- Requirements -->
     <section class="bg-white p-6 rounded-xl shadow">
-      <h2 class="text-xl font-semibold mb-3">Install</h2>
-      <ol class="list-decimal ml-6 space-y-2">
-        <li>Add local path repo (optional for local dev):
-<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>"repositories": [
+      <h2 class="text-xl font-semibold mb-3">Requirements</h2>
+      <ul class="list-disc ml-6 space-y-1">
+        <li>PHP 8.1 or higher</li>
+        <li>Laravel 10 or higher</li>
+        <li>Database supported by Eloquent (MySQL, PostgreSQL, SQLite, SQL Server)</li>
+        <li>Configured <code>public/storage</code> symlink (<code>php artisan storage:link</code>)</li>
+      </ul>
+    </section>
+
+    <!-- Installation -->
+    <section class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-xl font-semibold mb-3">Installation</h2>
+      <ol class="list-decimal ml-6 space-y-3">
+        <li>
+          Add local path repo (optional for local dev):
+          <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>"repositories": [
   { "type": "path", "url": "packages/areia-lab/laravel-seo-solution" }
 ]</code></pre>
         </li>
-        <li>Require the package:
-<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>composer require areia-lab/laravel-seo-solution:*</code></pre>
+        <li>
+          Require the package:
+          <pre
+            class="bg-gray-100 p-3 rounded overflow-x-auto"><code>composer require areia-lab/laravel-seo-solution:*</code></pre>
         </li>
-        <li>Publish & migrate:
-<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>php artisan vendor:publish --tag=seo-solution-config
+        <li>
+          Publish config, views & migrations:
+          <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>php artisan vendor:publish --tag=seo-solution-config
 php artisan vendor:publish --tag=seo-solution-views
+php artisan vendor:publish --tag=seo-solution-migrations
 php artisan migrate
 php artisan storage:link</code></pre>
         </li>
       </ol>
     </section>
 
+    <!-- Admin Panel -->
     <section class="bg-white p-6 rounded-xl shadow">
       <h2 class="text-xl font-semibold mb-3">Admin Panel</h2>
-      <p>Visit <code>/admin/seo</code> (or your configured prefix) to manage SEO records including uploads for OG/Twitter images.</p>
+      <p>Visit <code>/admin/seo</code> (or your configured prefix) to manage SEO records including uploads for
+        OG/Twitter images.</p>
       <ul class="list-disc ml-6">
-        <li>Type: <code>global</code>, <code>page</code>, <code>model</code></li>
+        <li>Types: <code>global</code>, <code>page</code>, <code>model</code></li>
         <li>Meta: title, description, keywords, canonical</li>
         <li>OpenGraph: title, description, type, image</li>
         <li>Twitter: title, description, card, image</li>
       </ul>
     </section>
 
+    <!-- Usage -->
     <section class="bg-white p-6 rounded-xl shadow">
-      <h2 class="text-xl font-semibold mb-3">Render in Blade</h2>
-      <p>Use Blade directives:</p>
-<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>@seoGlobal
+      <h2 class="text-xl font-semibold mb-3">Usage in Blade</h2>
+      <p>You can render SEO meta tags using Blade directives:</p>
+      <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>@seoGlobal
 @seoPage('contact')
 @seoModel($post)</code></pre>
-      <p>Or fluent API:</p>
-<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>{!! app('seo')->global()->render() !!}
+
+      <p>Or use the fluent API:</p>
+      <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>{!! app('seo')->global()->render() !!}
 {!! app('seo')->forPage('contact')->render() !!}
 {!! app('seo')->forModel($post)->render() !!}</code></pre>
+
       <p>Place the output inside your page <code>&lt;head&gt;</code>.</p>
     </section>
 
+    <!-- Examples -->
     <section class="bg-white p-6 rounded-xl shadow">
-      <h2 class="text-xl font-semibold mb-3">Seeder</h2>
-<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>php artisan db:seed --class="AreiaLab\LaravelSeoSolution\Database\Seeders\SeoMetaSeeder"</code></pre>
+      <h2 class="text-xl font-semibold mb-3">Examples</h2>
+      <div class="border rounded-xl overflow-hidden">
+        <div class="p-4 space-y-6">
+          <!-- Layout Example -->
+          <div>
+            <h3 class="font-semibold mb-2">🔹 Example: Using All Three in a Layout</h3>
+            <pre class="bg-gray-900 text-gray-100 p-3 rounded overflow-x-auto"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;@yield('title', 'My Website')&lt;/title&gt;
+
+    {{-- Inject SEO tags --}}
+    @seoGlobal
+    @isset($pageKey)
+        @seoPage($pageKey)
+    @endisset
+    @isset($seoModel)
+        @seoModel($seoModel)
+    @endisset
+&lt;/head&gt;
+&lt;body&gt;
+   @yield('content')
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <!-- Page Example -->
+          <div>
+            <h3 class="font-semibold mb-2">🔹 Example in a Specific Page View</h3>
+            <pre class="bg-gray-900 text-gray-100 p-3 rounded overflow-x-auto"><code>@extends('layouts.app')
+
+@section('title', 'Contact Us')
+
+@section('content')
+  &lt;h2&gt;Contact Us&lt;/h2&gt;
+  &lt;p&gt;Feel free to reach out!&lt;/p&gt;
+@endsection
+
+@push('head')
+  @seoPage('contact')
+@endpush</code></pre>
+          </div>
+
+          <!-- Model Example -->
+          <div>
+            <h3 class="font-semibold mb-2">🔹 Example with a Model (e.g. Blog Post)</h3>
+            <pre class="bg-gray-900 text-gray-100 p-3 rounded overflow-x-auto"><code>@extends('layouts.app')
+
+@section('title', $post-&gt;title)
+
+@section('content')
+  &lt;h2&gt;{{ $post-&gt;title }}&lt;/h2&gt;
+  &lt;p&gt;{{ $post-&gt;body }}&lt;/p&gt;
+@endsection
+
+@push('head')
+  @seoModel($post)
+@endpush</code></pre>
+          </div>
+
+          <!-- Combined Example -->
+          <div>
+            <h3 class="font-semibold mb-2">🔹 Example: Global + Page + Model Together</h3>
+            <pre class="bg-gray-900 text-gray-100 p-3 rounded overflow-x-auto"><code>&lt;head&gt;
+    @seoGlobal
+    @seoPage(Route::currentRouteName())
+    @isset($post)
+        @seoModel($post)
+    @endisset
+&lt;/head&gt;</code></pre>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- Seeder -->
+    <section class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-xl font-semibold mb-3">Seeder</h2>
+      <pre
+        class="bg-gray-100 p-3 rounded overflow-x-auto"><code>php artisan db:seed --class="AreiaLab\LaravelSeoSolution\Database\Seeders\SeoMetaSeeder"</code></pre>
+    </section>
+
+    <!-- Config -->
     <section class="bg-white p-6 rounded-xl shadow">
       <h2 class="text-xl font-semibold mb-3">Configuration</h2>
-<pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>return [
+      <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>return [
   'route' => [
     'prefix' => 'admin/seo',
     'middleware' => ['web','auth']
@@ -79,7 +186,8 @@ php artisan storage:link</code></pre>
   </main>
 
   <footer class="text-center text-sm text-gray-500 py-8">
-    &copy; Areia Lab – Laravel SEO Solution
+    &copy; {{ date('Y') }} Areia Lab – Laravel SEO Solution
   </footer>
 </body>
+
 </html>

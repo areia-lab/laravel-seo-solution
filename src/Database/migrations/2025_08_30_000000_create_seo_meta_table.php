@@ -11,12 +11,14 @@ return new class extends Migration {
             $table->id();
             $table->string('type')->default('global');
             $table->string('page')->nullable();
-            $table->nullableMorphs('seoable');
+            $table->nullableMorphs('seoable'); // already adds index
 
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->text('keywords')->nullable();
             $table->string('canonical')->nullable();
+            $table->string('meta_robots')->nullable();
+            $table->string('meta_author')->nullable();
 
             $table->string('og_title')->nullable();
             $table->text('og_description')->nullable();
@@ -31,7 +33,6 @@ return new class extends Migration {
             $table->timestamps();
 
             $table->unique(['type', 'page'], 'seo_unique_type_page');
-            $table->index(['seoable_type', 'seoable_id']);
         });
     }
 
