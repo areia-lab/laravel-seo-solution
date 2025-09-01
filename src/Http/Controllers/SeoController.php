@@ -22,18 +22,8 @@ class SeoController extends Controller
         // Paginate results
         $items = $query->orderBy('updated_at', 'desc')->paginate(12)->withQueryString();
 
-        // Counts for sidebar badges
-        $totalCount  = SeoMeta::count();
-        $globalCount = SeoMeta::where('type', 'global')->count();
-        $pageCount   = SeoMeta::where('type', 'page')->count();
-        $modelCount  = SeoMeta::where('type', 'model')->count();
-
         return view('seo-solution::backend.index', compact(
             'items',
-            'totalCount',
-            'globalCount',
-            'pageCount',
-            'modelCount'
         ));
     }
 
