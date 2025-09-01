@@ -1,58 +1,197 @@
-@extends('seo-solution::layouts.app')
+<x-seo>
+    <div class="flex flex-col gap-6">
+        <!-- Header + Search -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">SEO Records</h2>
+                    <p class="text-gray-500 mt-1">Manage global, page, and model-specific SEO metadata efficiently.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                    <div class="relative flex-1">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="search" placeholder="Search SEO records..."
+                            class="search-input w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                    </div>
+                    <a href="{{ route('seo.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        <span>Create New</span>
+                    </a>
+                </div>
+            </div>
+        </div>
 
-@section('content')
-  <div class="bg-white rounded-xl shadow p-6">
-    <div class="flex items-center justify-between mb-4">
-      <div>
-        <h2 class="text-xl font-semibold">SEO Records</h2>
-        <p class="text-sm text-gray-500">Manage global, page and model specific SEO metadata</p>
-      </div>
-      <a href="{{ route('seo.create') }}" class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">Create</a>
+        <!-- Table -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                ID
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Type
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Page/Model</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Title
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Updated</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="seoTableBody">
+                        @forelse($items as $row)
+                            <tr class="hover:bg-gray-50 transition duration-150">
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $row->id }}</td>
+                                <td class="px-6 py-4 text-sm">
+                                    @php
+                                        $typeColors = [
+                                            'global' => 'bg-green-100 text-green-800',
+                                            'page' => 'bg-yellow-100 text-yellow-800',
+                                            'model' => 'bg-purple-100 text-purple-800',
+                                        ];
+                                        $typeIcons = [
+                                            'global' => 'fa-globe',
+                                            'page' => 'fa-file',
+                                            'model' => 'fa-cube',
+                                        ];
+                                    @endphp
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $typeColors[$row->type] ?? 'bg-gray-100 text-gray-800' }}">
+                                        <i class="fas {{ $typeIcons[$row->type] ?? 'fa-question' }} mr-1"></i>
+                                        {{ ucfirst($row->type) }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600">
+                                    @if ($row->type === 'model')
+                                        <span
+                                            class="font-mono">{{ class_basename($row->seoable_type) }}#{{ $row->seoable_id }}</span>
+                                    @else
+                                        {{ $row->page ?? '-' }}
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-900">
+                                    <div class="truncate max-w-xs">{{ $row->title ?? '-' }}</div>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-500">
+                                    <span title="{{ $row->updated_at }}">{{ $row->updated_at->diffForHumans() }}</span>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-medium text-right">
+                                    <div class="flex justify-end space-x-2">
+                                        <a href="{{ route('seo.edit', $row) }}"
+                                            class="text-blue-600 hover:text-blue-900 inline-flex items-center">
+                                            <i class="fas fa-edit mr-1"></i>
+                                            <span class="hidden md:inline">Edit</span>
+                                        </a>
+                                        <form method="POST" action="{{ route('seo.destroy', $row) }}"
+                                            onsubmit="return confirm('Are you sure you want to delete this SEO record?')">
+                                            @csrf @method('DELETE')
+                                            <button type="submit"
+                                                class="text-red-600 hover:text-red-900 inline-flex items-center">
+                                                <i class="fas fa-trash mr-1"></i>
+                                                <span class="hidden md:inline">Delete</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-6 py-12 text-center">
+                                    <div class="flex flex-col items-center justify-center text-gray-400">
+                                        <i class="fas fa-inbox text-4xl mb-3"></i>
+                                        <p class="text-lg">No SEO records found</p>
+                                        <p class="text-sm mt-1">Get started by creating a new SEO record</p>
+                                        <a href="{{ route('seo.create') }}" class="btn btn-primary mt-4">
+                                            <i class="fas fa-plus"></i>
+                                            Create New Record
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        @if ($items->hasPages())
+            <div class="bg-white rounded-xl shadow-sm p-4">
+                <div class="pagination">
+                    {{ $items->links() }}
+                </div>
+            </div>
+        @endif
     </div>
 
-    <div class="overflow-x-auto">
-      <table class="min-w-full text-left text-sm">
-        <thead class="bg-gray-100 text-gray-700">
-          <tr>
-            <th class="px-4 py-2">ID</th>
-            <th class="px-4 py-2">Type</th>
-            <th class="px-4 py-2">Page/Model</th>
-            <th class="px-4 py-2">Title</th>
-            <th class="px-4 py-2">Updated</th>
-            <th class="px-4 py-2 text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @forelse($items as $row)
-            <tr class="border-b last:border-0">
-              <td class="px-4 py-2">{{ $row->id }}</td>
-              <td class="px-4 py-2">
-                <span class="rounded bg-gray-100 px-2 py-1 text-xs uppercase">{{ $row->type }}</span>
-              </td>
-              <td class="px-4 py-2">
-                @if($row->type === 'model')
-                  <span class="text-xs text-gray-600">{{ $row->seoable_type }}#{{ $row->seoable_id }}</span>
-                @else
-                  {{ $row->page ?? '-' }}
-                @endif
-              </td>
-              <td class="px-4 py-2 truncate max-w-[240px]">{{ \Illuminate\Support\Str::limit($row->title, 60) }}</td>
-              <td class="px-4 py-2 text-gray-500">{{ $row->updated_at->diffForHumans() }}</td>
-              <td class="px-4 py-2 text-right">
-                <a href="{{ route('seo.edit', $row) }}" class="text-blue-600 hover:underline mr-3">Edit</a>
-                <form class="inline" method="POST" action="{{ route('seo.destroy', $row) }}" onsubmit="return confirm('Delete this SEO record?')">
-                  @csrf @method('DELETE')
-                  <button class="text-red-600 hover:underline">Delete</button>
-                </form>
-              </td>
-            </tr>
-          @empty
-            <tr><td colspan="6" class="px-4 py-6 text-center text-gray-500">No records yet.</td></tr>
-          @endforelse
-        </tbody>
-      </table>
-    </div>
+    <!-- Search JS -->
+    <script>
+        const searchInput = document.getElementById('search');
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            document.querySelectorAll('#seoTableBody tr').forEach(row => {
+                if (row.querySelector('.text-lg')) return; // Skip the empty state row
 
-    <div class="mt-4">{{ $items->links() }}</div>
-  </div>
-@endsection
+                const title = row.cells[3].textContent.toLowerCase();
+                const type = row.cells[1].textContent.toLowerCase();
+                const pageModel = row.cells[2].textContent.toLowerCase();
+                const id = row.cells[0].textContent.toLowerCase();
+
+                row.style.display = title.includes(query) || type.includes(query) ||
+                    pageModel.includes(query) || id.includes(query) ? '' : 'none';
+            });
+        });
+    </script>
+
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .pagination li {
+            margin: 0 0.25rem;
+        }
+
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.375rem;
+            border: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .pagination a:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination .active a {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .table-row {
+            transition: all 0.2s ease;
+        }
+
+        .table-row:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</x-seo>
