@@ -6,13 +6,35 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use AreiaLab\LaravelSeoSolution\Models\SeoMeta;
 use AreiaLab\LaravelSeoSolution\Http\Requests\SeoMetaRequest;
+use Illuminate\Http\Request;
 
 class SeoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = SeoMeta::latest()->paginate(15);
-        return view('seo-solution::backend.index', compact('items'));
+        // Filter by type if provided
+        $query = SeoMeta::query();
+
+        if ($request->has('type') && in_array($request->type, ['global', 'page', 'model'])) {
+            $query->where('type', $request->type);
+        }
+
+        // Paginate results
+        $items = $query->orderBy('updated_at', 'desc')->paginate(12)->withQueryString();
+
+        // Counts for sidebar badges
+        $totalCount  = SeoMeta::count();
+        $globalCount = SeoMeta::where('type', 'global')->count();
+        $pageCount   = SeoMeta::where('type', 'page')->count();
+        $modelCount  = SeoMeta::where('type', 'model')->count();
+
+        return view('seo-solution::backend.index', compact(
+            'items',
+            'totalCount',
+            'globalCount',
+            'pageCount',
+            'modelCount'
+        ));
     }
 
     public function create()

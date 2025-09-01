@@ -3,7 +3,7 @@
 return [
     'route' => [
         'prefix' => env('SEO_PANEL_PREFIX', 'admin/seo'),
-        'middleware' => ['web', 'auth'],
+        'middleware' => ['web'],
     ],
     'disk' => env('SEO_DISK', 'public'),
     'defaults' => [
