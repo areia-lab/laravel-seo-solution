@@ -3,31 +3,51 @@
 namespace AreiaLab\LaravelSeoSolution\View\Components;
 
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\Cache;
 use AreiaLab\LaravelSeoSolution\Models\SeoMeta;
 
 class Layout extends Component
 {
-    public $totalCount;
-    public $globalCount;
-    public $pageCount;
-    public $modelCount;
+    public int $totalCount;
+    public int $globalCount;
+    public int $pageCount;
+    public int $modelCount;
 
     public function __construct()
     {
-        // Automatically fetch counts from the database
-        $this->totalCount = SeoMeta::count();
-        $this->globalCount = SeoMeta::where('type', 'global')->count();
-        $this->pageCount   = SeoMeta::where('type', 'page')->count();
-        $this->modelCount  = SeoMeta::where('type', 'model')->count();
+        if (config('seo-solution.cache', false)) {
+            // Cached result (5 minutes, configurable if needed)
+            $counts = Cache::remember('seo_meta_counts', now()->addMinutes(5), function () {
+                return $this->getCountsFromDatabase();
+            });
+        } else {
+            // Direct query without caching
+            $counts = $this->getCountsFromDatabase();
+        }
+
+        $this->totalCount  = $counts->sum();
+        $this->globalCount = $counts['global'] ?? 0;
+        $this->pageCount   = $counts['page']   ?? 0;
+        $this->modelCount  = $counts['model']  ?? 0;
+    }
+
+    /**
+     * Fetch counts grouped by type.
+     */
+    protected function getCountsFromDatabase()
+    {
+        return SeoMeta::selectRaw('type, COUNT(*) as count')
+            ->groupBy('type')
+            ->pluck('count', 'type');
     }
 
     public function render()
     {
         return view('seo-solution::layouts.app', [
-            'totalCount' => $this->totalCount,
+            'totalCount'  => $this->totalCount,
             'globalCount' => $this->globalCount,
-            'pageCount' => $this->pageCount,
-            'modelCount' => $this->modelCount,
+            'pageCount'   => $this->pageCount,
+            'modelCount'  => $this->modelCount,
         ]);
     }
 }

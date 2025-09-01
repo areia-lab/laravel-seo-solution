@@ -10,9 +10,14 @@ use Illuminate\Http\Request;
 
 class SeoController extends Controller
 {
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function index(Request $request)
     {
-        // Filter by type if provided
         $query = SeoMeta::query();
 
         if ($request->has('type') && in_array($request->type, ['global', 'page', 'model'])) {
@@ -20,16 +25,16 @@ class SeoController extends Controller
         }
 
         // Paginate results
-        $items = $query->orderBy('updated_at', 'desc')->paginate(12)->withQueryString();
+        $items = $query->orderBy('updated_at', 'desc')->paginate(15)->withQueryString();
 
-        return view('seo-solution::backend.index', compact(
+        return view('seo-solution::admin.index', compact(
             'items',
         ));
     }
 
     public function create()
     {
-        return view('seo-solution::backend.form', ['seo' => new SeoMeta()]);
+        return view('seo-solution::admin.form', ['seo' => new SeoMeta()]);
     }
 
     public function store(SeoMetaRequest $request)
@@ -44,7 +49,7 @@ class SeoController extends Controller
 
     public function edit(SeoMeta $seo)
     {
-        return view('seo-solution::backend.form', compact('seo'));
+        return view('seo-solution::admin.form', compact('seo'));
     }
 
     public function update(SeoMetaRequest $request, SeoMeta $seo)

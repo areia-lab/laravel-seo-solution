@@ -9,4 +9,9 @@ return [
     'defaults' => [
         'title_suffix' => '',
     ],
+    'cache' => false,
+
+    'panel' => [
+        'title_prefix'  => 'Areia Lab'
+    ],
 ];

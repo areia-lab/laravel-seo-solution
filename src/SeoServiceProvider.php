@@ -2,6 +2,8 @@
 
 namespace AreiaLab\LaravelSeoSolution;
 
+use AreiaLab\LaravelSeoSolution\Models\SeoMeta;
+use AreiaLab\LaravelSeoSolution\Observers\SeoMetaObserver;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use AreiaLab\LaravelSeoSolution\View\Components\Layout;
@@ -28,17 +30,19 @@ class SeoServiceProvider extends ServiceProvider
         ], 'seo-solution-config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/seo-solution'),
-        ], 'seo-solution-views');
+            __DIR__ . '/../resources/views' => resource_path('views/areia-lab/seo'),
+        ], 'seo-views');
 
         $this->publishes([
             __DIR__ . '/Database/migrations' => database_path('migrations'),
-        ], 'seo-solution-migrations');
+        ], 'seo-migrations');
 
         // Publish seeders
         $this->publishes([
             __DIR__ . '/Database/seeders' => database_path('seeders'),
-        ], 'seo-solution-seeders');
+        ], 'seo-seeders');
+
+        SeoMeta::observe(SeoMetaObserver::class);
 
         Blade::component(Layout::class, 'seo');
 
