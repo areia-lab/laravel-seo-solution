@@ -33,6 +33,7 @@ class SeoMeta extends Model
     ];
 
     protected $casts = [
+        'keywords' => 'array',
         'seoable_id' => 'integer',
     ];
 

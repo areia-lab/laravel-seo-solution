@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use AreiaLab\LaravelSeoSolution\Http\Controllers\SeoController;
 
 Route::group([
-    'prefix' => config('seo-solution.route.prefix'),
-    'middleware' => config('seo-solution.route.middleware'),
+    'prefix' => config('seo.route.prefix'),
+    'middleware' => config('seo.route.middleware'),
 ], function () {
     Route::get('/', [SeoController::class, 'index'])->name('seo.index');
     Route::get('/create', [SeoController::class, 'create'])->name('seo.create');

@@ -1,4 +1,4 @@
-<x-seo>
+<x-seo title="SEO Manager">
     <div class="flex flex-col gap-6">
         <!-- Header + Search -->
         <div class="bg-white rounded-xl shadow-sm p-6">

@@ -2,6 +2,8 @@
 
 namespace AreiaLab\LaravelSeoSolution;
 
+use AreiaLab\LaravelSeoSolution\Models\SeoMeta;
+use AreiaLab\LaravelSeoSolution\Observers\SeoMetaObserver;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use AreiaLab\LaravelSeoSolution\View\Components\Layout;
@@ -10,7 +12,7 @@ class SeoServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/seo-solution.php', 'seo-solution');
+        $this->mergeConfigFrom(__DIR__ . '/../config/seo.php', 'seo');
 
         $this->app->singleton('seo', function () {
             return new SeoManager;
@@ -24,21 +26,23 @@ class SeoServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seo-solution');
 
         $this->publishes([
-            __DIR__ . '/../config/seo-solution.php' => config_path('seo-solution.php'),
-        ], 'seo-solution-config');
+            __DIR__ . '/../config/seo.php' => config_path('seo.php'),
+        ], 'seo-config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/seo-solution'),
-        ], 'seo-solution-views');
+            __DIR__ . '/../resources/views' => resource_path('views/seo'),
+        ], 'seo-views');
 
         $this->publishes([
             __DIR__ . '/Database/migrations' => database_path('migrations'),
-        ], 'seo-solution-migrations');
+        ], 'seo-migrations');
 
         // Publish seeders
         $this->publishes([
             __DIR__ . '/Database/seeders' => database_path('seeders'),
-        ], 'seo-solution-seeders');
+        ], 'seo-seeders');
+
+        SeoMeta::observe(SeoMetaObserver::class);
 
         Blade::component(Layout::class, 'seo');
 

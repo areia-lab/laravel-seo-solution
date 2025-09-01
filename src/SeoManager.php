@@ -8,6 +8,12 @@ class SeoManager
 {
     protected ?SeoMeta $meta = null;
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $model
+     * @return static
+     */
     public function forModel($model): static
     {
         if ($model) {
@@ -19,6 +25,12 @@ class SeoManager
         return $this;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string|null $page
+     * @return static
+     */
     public function forPage(?string $page): static
     {
         if ($page) {
@@ -30,12 +42,22 @@ class SeoManager
         return $this;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return static
+     */
     public function global(): static
     {
         $this->meta = SeoMeta::query()->where('type', 'global')->first();
         return $this;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return string
+     */
     public function render(): string
     {
         $meta = $this->meta ?? SeoMeta::query()->where('type', 'global')->first();
