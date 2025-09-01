@@ -15,8 +15,8 @@ class Layout extends Component
 
     public function __construct()
     {
-        if (config('seo-solution.cache', false)) {
-            // Cached result (5 minutes, configurable if needed)
+        if (config('seo.cache', false)) {
+            // Cached default (5 minutes)
             $counts = Cache::remember('seo_meta_counts', now()->addMinutes(5), function () {
                 return $this->getCountsFromDatabase();
             });

@@ -11,14 +11,14 @@ return new class extends Migration {
             $table->id();
             $table->string('type')->default('global');
             $table->string('page')->nullable();
-            $table->nullableMorphs('seoable'); // already adds index
+            $table->nullableMorphs('seoable');
 
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->text('keywords')->nullable();
             $table->string('canonical')->nullable();
-            $table->string('meta_robots')->nullable();
             $table->string('meta_author')->nullable();
+            $table->string('meta_robots')->nullable();
 
             $table->string('og_title')->nullable();
             $table->text('og_description')->nullable();

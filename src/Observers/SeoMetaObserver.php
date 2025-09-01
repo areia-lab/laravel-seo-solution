@@ -36,7 +36,7 @@ class SeoMetaObserver
      */
     protected function clearCache(): void
     {
-        if (config('seo-solution.cache', false)) {
+        if (config('seo.cache', false)) {
             Cache::forget('seo_meta_counts');
         }
     }

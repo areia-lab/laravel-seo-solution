@@ -12,7 +12,7 @@ class SeoServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/seo-solution.php', 'seo-solution');
+        $this->mergeConfigFrom(__DIR__ . '/../config/seo.php', 'seo');
 
         $this->app->singleton('seo', function () {
             return new SeoManager;
@@ -26,11 +26,11 @@ class SeoServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seo-solution');
 
         $this->publishes([
-            __DIR__ . '/../config/seo-solution.php' => config_path('seo-solution.php'),
-        ], 'seo-solution-config');
+            __DIR__ . '/../config/seo.php' => config_path('seo.php'),
+        ], 'seo-config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/areia-lab/seo'),
+            __DIR__ . '/../resources/views' => resource_path('views/seo'),
         ], 'seo-views');
 
         $this->publishes([

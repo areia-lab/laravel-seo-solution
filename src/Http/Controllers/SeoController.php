@@ -70,7 +70,7 @@ class SeoController extends Controller
 
     protected function handleUploads(array $data, ?SeoMeta $existing = null): array
     {
-        $disk = config('seo-solution.disk', 'public');
+        $disk = config('seo.disk', 'public');
 
         foreach (['og_image', 'twitter_image'] as $field) {
             if (request()->hasFile($field)) {

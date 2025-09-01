@@ -1,7 +1,7 @@
 @if ($meta)
     <!-- Page Title -->
     <title>
-        {{ trim(($meta->title ?? config('app.name')) . (config('seo-solution.defaults.title_suffix') ? ' ' . config('seo-solution.defaults.title_suffix') : '')) }}
+        {{ trim(($meta->title ?? config('app.name')) . (config('seo.defaults.title_suffix') ? ' ' . config('seo.defaults.title_suffix') : '')) }}
     </title>
 
     <!-- Basic SEO Meta -->
