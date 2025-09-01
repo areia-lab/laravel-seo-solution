@@ -75,7 +75,7 @@
             <div id="pageField" class="hidden transition-all duration-300 bg-blue-50 p-4 rounded-lg">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Page Identifier</label>
                 <input type="text" name="page" value="{{ old('page', $seo->page) }}"
-                    class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                    class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                     placeholder="home, contact, about">
                 <p class="mt-1 text-xs text-gray-500">Enter the page identifier (route name or slug)</p>
             </div>
@@ -85,13 +85,13 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Model Class</label>
                         <input type="text" name="seoable_type" value="{{ old('seoable_type', $seo->seoable_type) }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                             placeholder="App\Models\Post">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Model ID</label>
                         <input type="number" name="seoable_id" value="{{ old('seoable_id', $seo->seoable_id) }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                             placeholder="1">
                     </div>
                 </div>
@@ -109,13 +109,13 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
                         <input type="text" name="title" value="{{ old('title', $seo->title) }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                         <p class="mt-1 text-xs text-gray-500">Recommended: 50-60 characters</p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Canonical URL</label>
                         <input type="url" name="canonical" value="{{ old('canonical', $seo->canonical) }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                             placeholder="https://example.com/page">
                     </div>
                 </div>
@@ -123,14 +123,14 @@
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
                     <textarea name="description" rows="3"
-                        class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">{{ old('description', $seo->description) }}</textarea>
+                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">{{ old('description', $seo->description) }}</textarea>
                     <p class="mt-1 text-xs text-gray-500">Recommended: 150-160 characters</p>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Keywords (comma separated)</label>
                     <input type="text" name="keywords" value="{{ old('keywords', $seo->keywords) }}"
-                        class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     <p class="mt-1 text-xs text-gray-500">Separate keywords with commas (e.g. seo, marketing, web)</p>
                 </div>
             </div>
@@ -146,26 +146,26 @@
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">OG Title</label>
                         <input type="text" name="og_title" value="{{ old('og_title', $seo->og_title) }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">OG Description</label>
                         <textarea name="og_description" rows="2"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">{{ old('og_description', $seo->og_description) }}</textarea>
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">{{ old('og_description', $seo->og_description) }}</textarea>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">OG Type</label>
                         <input type="text" name="og_type"
                             value="{{ old('og_type', $seo->og_type ?? 'website') }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">OG Image</label>
                         <input type="file" name="og_image" accept="image/*"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                         @if ($seo->og_image)
                             <div class="mt-3 flex items-center">
                                 <img src="{{ $seo->og_image }}" class="h-20 w-20 object-cover rounded border">
@@ -185,19 +185,19 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Twitter Title</label>
                         <input type="text" name="twitter_title"
                             value="{{ old('twitter_title', $seo->twitter_title) }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Twitter Description</label>
                         <textarea name="twitter_description" rows="2"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">{{ old('twitter_description', $seo->twitter_description) }}</textarea>
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">{{ old('twitter_description', $seo->twitter_description) }}</textarea>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Twitter Card Type</label>
                         <select name="twitter_card"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                             @php $card = old('twitter_card', $seo->twitter_card ?? 'summary_large_image'); @endphp
                             <option value="summary" {{ $card === 'summary' ? 'selected' : '' }}>Summary</option>
                             <option value="summary_large_image"
@@ -212,7 +212,7 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Twitter Image</label>
                         <input type="file" name="twitter_image" accept="image/*"
-                            class="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                         @if ($seo->twitter_image)
                             <div class="mt-3 flex items-center">
                                 <img src="{{ $seo->twitter_image }}" class="h-20 w-20 object-cover rounded border">
@@ -289,6 +289,11 @@
                         });
                         this.classList.add('ring-2', 'ring-blue-500');
                     });
+
+                    // Initialize selected state
+                    if (option.querySelector('input').checked) {
+                        option.classList.add('ring-2', 'ring-blue-500');
+                    }
                 });
             });
         </script>
@@ -303,11 +308,38 @@
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
 
+            /* Improved input styling */
+            input,
+            textarea,
+            select {
+                border: 1px solid #d1d5db !important;
+                background-color: white !important;
+                color: #111827 !important;
+                padding: 0.625rem 1rem !important;
+            }
+
             input:focus,
             textarea:focus,
             select:focus {
                 outline: none;
-                ring: 2px;
+                border-color: transparent !important;
+                box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
+            }
+
+            /* File input styling */
+            input[type="file"]::-webkit-file-upload-button {
+                background: #eff6ff;
+                color: #1d4ed8;
+                font-weight: 600;
+                border: 0;
+                padding: 0.5rem 1rem;
+                border-radius: 9999px;
+                margin-right: 1rem;
+                transition: all 0.2s;
+            }
+
+            input[type="file"]::-webkit-file-upload-button:hover {
+                background: #dbeafe;
             }
         </style>
     @endpush

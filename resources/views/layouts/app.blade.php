@@ -90,6 +90,7 @@
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
+                top: 0;
                 left: -100%;
                 z-index: 50;
                 height: 100vh;
