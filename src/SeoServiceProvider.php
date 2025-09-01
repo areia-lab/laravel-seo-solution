@@ -40,7 +40,7 @@ class SeoServiceProvider extends ServiceProvider
             __DIR__ . '/Database/seeders' => database_path('seeders'),
         ], 'seo-solution-seeders');
 
-        Blade::component(Layout::class, 'seo-layout');
+        Blade::component(Layout::class, 'seo');
 
         Blade::directive('seoGlobal', function () {
             return "<?php echo app('seo')->global()->render(); ?>";
