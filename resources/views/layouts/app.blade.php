@@ -7,11 +7,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{{ config('seo.panel.title_prefix') . ' - ' . ($title ?? '') }}</title>
+    <title>{{ config('seo.panel.title_prefix') . ' - ' . ($title ?: '') }}</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- Load package assets --}}
+    @seoStyles
+
+    {{-- Example fallback if no directive is defined --}}
+    {{-- <link rel="stylesheet" href="{{ asset('vendor/seo-solution/seo.css') }}"> --}}
+    {{-- <script src="{{ asset('vendor/seo-solution/seo.js') }}" defer></script> --}}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
             --primary: #4361ee;
@@ -121,6 +127,7 @@
             animation: slideIn 0.3s ease;
         }
     </style>
+
     @stack('head')
 </head>
 
@@ -240,6 +247,7 @@
         mobileOverlay?.addEventListener('click', toggleSidebar);
     </script>
 
+    @seoScripts
     @stack('scripts')
 </body>
 

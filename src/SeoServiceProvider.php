@@ -40,9 +40,22 @@ class SeoServiceProvider extends ServiceProvider
             __DIR__ . '/Database/seeders' => database_path('seeders'),
         ], 'seo-seeders');
 
+        // Publish resources
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/seo'),
+        ], 'seo-views');
+
         SeoMeta::observe(SeoMetaObserver::class);
 
         Blade::component(Layout::class, 'seo');
+
+        Blade::directive('seoStyles', function () {
+            return '<link rel="stylesheet" href="' . asset('vendor/seo-solution/seo.css') . '">';
+        });
+
+        Blade::directive('seoScripts', function () {
+            return '<script src="' . asset('vendor/seo-solution/seo.js') . '" defer></script>';
+        });
 
         Blade::directive('seoGlobal', function () {
             return "<?php echo app('seo')->global()->render(); ?>";
