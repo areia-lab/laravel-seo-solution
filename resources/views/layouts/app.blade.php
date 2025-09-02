@@ -20,7 +20,6 @@
         <script src="{{ asset('vendor/seo/seo.js') }}" defer></script>
     @endif
 
-
     @stack('head')
 </head>
 
@@ -51,58 +50,20 @@
                     SEO Manager
                 </h1>
                 <nav class="space-y-2">
-                    <!-- All SEO -->
-                    <a href="{{ route('seo.index') }}"
-                        class="nav-item flex items-center justify-between px-4 py-3 hover:bg-blue-50
-                        {{ !request('type') ? 'bg-blue-100 text-blue-800 font-semibold' : 'text-gray-700' }}">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-list text-gray-600"></i>
-                            <span>All SEO</span>
-                        </div>
-                        <span class="badge bg-gray-200 text-gray-800">
-                            {{ $totalCount }}
-                        </span>
-                    </a>
+                    <x-seo::nav-item href="{{ route('seo.index') }}" icon="fa-list text-gray-600" label="All SEO"
+                        :count="$totalCount" :active="!request('type')" />
 
-                    <!-- Global -->
-                    <a href="{{ route('seo.index', ['type' => 'global']) }}"
-                        class="nav-item flex items-center justify-between px-4 py-3 hover:bg-blue-50
-                        {{ request('type') === 'global' ? 'bg-blue-100 text-blue-800 font-semibold' : 'text-gray-700' }}">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-globe text-green-600"></i>
-                            <span>Global</span>
-                        </div>
-                        <span class="badge bg-green-100 text-green-800">
-                            {{ $globalCount }}
-                        </span>
-                    </a>
+                    <x-seo::nav-item href="{{ route('seo.index', ['type' => 'global']) }}"
+                        icon="fa-globe text-green-600" label="Global" :count="$globalCount" :active="request('type') === 'global'"
+                        badge="bg-green-100 text-green-800" />
 
-                    <!-- Pages -->
-                    <a href="{{ route('seo.index', ['type' => 'page']) }}"
-                        class="nav-item flex items-center justify-between px-4 py-3 hover:bg-blue-50
-                        {{ request('type') === 'page' ? 'bg-blue-100 text-blue-800 font-semibold' : 'text-gray-700' }}">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-file text-yellow-600"></i>
-                            <span>Pages</span>
-                        </div>
-                        <span class="badge bg-yellow-100 text-yellow-800">
-                            {{ $pageCount }}
-                        </span>
-                    </a>
+                    <x-seo::nav-item href="{{ route('seo.index', ['type' => 'page']) }}" icon="fa-file text-yellow-600"
+                        label="Pages" :count="$pageCount" :active="request('type') === 'page'" badge="bg-yellow-100 text-yellow-800" />
 
-                    <!-- Model -->
-                    <a href="{{ route('seo.index', ['type' => 'model']) }}"
-                        class="nav-item flex items-center justify-between px-4 py-3 hover:bg-blue-50
-                        {{ request('type') === 'model' ? 'bg-blue-100 text-blue-800 font-semibold' : 'text-gray-700' }}">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-cube text-purple-600"></i>
-                            <span>Model</span>
-                        </div>
-                        <span class="badge bg-purple-100 text-purple-800">
-                            {{ $modelCount }}
-                        </span>
-                    </a>
+                    <x-seo::nav-item href="{{ route('seo.index', ['type' => 'model']) }}" icon="fa-cube text-purple-600"
+                        label="Model" :count="$modelCount" :active="request('type') === 'model'" badge="bg-purple-100 text-purple-800" />
                 </nav>
+
             </div>
         </aside>
 
