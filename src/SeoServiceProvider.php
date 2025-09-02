@@ -49,14 +49,6 @@ class SeoServiceProvider extends ServiceProvider
 
         Blade::component(Layout::class, 'seo');
 
-        Blade::directive('seoStyles', function () {
-            return '<link rel="stylesheet" href="' . asset('vendor/seo-solution/seo.css') . '">';
-        });
-
-        Blade::directive('seoScripts', function () {
-            return '<script src="' . asset('vendor/seo-solution/seo.js') . '" defer></script>';
-        });
-
         Blade::directive('seoGlobal', function () {
             return "<?php echo app('seo')->global()->render(); ?>";
         });

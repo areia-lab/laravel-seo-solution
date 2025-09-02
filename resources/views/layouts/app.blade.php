@@ -9,12 +9,7 @@
 
     <title>{{ config('seo.panel.title_prefix') . ' - ' . ($title ?: '') }}</title>
 
-    {{-- Load package assets --}}
-    @seoStyles
-
-    {{-- Example fallback if no directive is defined --}}
-    {{-- <link rel="stylesheet" href="{{ asset('vendor/seo-solution/seo.css') }}"> --}}
-    {{-- <script src="{{ asset('vendor/seo-solution/seo.js') }}" defer></script> --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -246,9 +241,6 @@
         mobileMenuButton?.addEventListener('click', toggleSidebar);
         mobileOverlay?.addEventListener('click', toggleSidebar);
     </script>
-
-    @seoScripts
-    @stack('scripts')
 </body>
 
 </html>
