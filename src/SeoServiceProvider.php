@@ -25,14 +25,12 @@ class SeoServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seo-solution');
 
+        // Publish config
         $this->publishes([
             __DIR__ . '/../config/seo.php' => config_path('seo.php'),
         ], 'seo-config');
 
-        $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/seo'),
-        ], 'seo-views');
-
+        // Publish migrations
         $this->publishes([
             __DIR__ . '/Database/migrations' => database_path('migrations'),
         ], 'seo-migrations');
