@@ -1,4 +1,4 @@
-<x-seo title="SEO Manager">
+<x-seo::layout title="SEO Manager">
     <div class="flex flex-col gap-6">
         <!-- Header + Search -->
         <div class="bg-white rounded-xl shadow-sm p-6">
@@ -194,4 +194,4 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
-</x-seo>
+    </x-seo>

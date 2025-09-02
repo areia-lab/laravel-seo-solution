@@ -47,7 +47,8 @@ class SeoServiceProvider extends ServiceProvider
 
         SeoMeta::observe(SeoMetaObserver::class);
 
-        Blade::component(Layout::class, 'seo');
+        // Register components namespace
+        Blade::componentNamespace('AreiaLab\\LaravelSeoSolution\\View\\Components', 'seo');
 
         Blade::directive('seoGlobal', function () {
             return "<?php echo app('seo')->global()->render(); ?>";
