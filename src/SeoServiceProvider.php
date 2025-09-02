@@ -6,7 +6,6 @@ use AreiaLab\LaravelSeoSolution\Models\SeoMeta;
 use AreiaLab\LaravelSeoSolution\Observers\SeoMetaObserver;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use AreiaLab\LaravelSeoSolution\View\Components\Layout;
 
 class SeoServiceProvider extends ServiceProvider
 {
@@ -40,9 +39,20 @@ class SeoServiceProvider extends ServiceProvider
             __DIR__ . '/Database/seeders' => database_path('seeders'),
         ], 'seo-seeders');
 
+        // Publish views
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/seo'),
+        ], 'seo-views');
+
+        // Publish assets
+        $this->publishes([
+            __DIR__ . '/../public/vendor' => public_path('vendor'),
+        ], 'seo-assets');
+
         SeoMeta::observe(SeoMetaObserver::class);
 
-        Blade::component(Layout::class, 'seo');
+        // Register components namespace
+        Blade::componentNamespace('AreiaLab\\LaravelSeoSolution\\View\\Components', 'seo');
 
         Blade::directive('seoGlobal', function () {
             return "<?php echo app('seo')->global()->render(); ?>";
