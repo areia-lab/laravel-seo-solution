@@ -9,12 +9,11 @@
 
     <title>{{ config('seo.panel.title_prefix') . ' - ' . ($title ?: '') }}</title>
 
-    {{-- Assets --}}
     @if (app()->environment('local') && file_exists(base_path('resources/js/app.js')))
-        {{-- Development: Use Vite --}}
+        <!-- For Development -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
-        {{-- Production: Use published assets --}}
+        <!-- For Production -->
         <link rel="stylesheet" href="{{ asset('vendor/seo/app.css') }}">
         <script src="{{ asset('vendor/seo/app.js') }}" defer></script>
     @endif
