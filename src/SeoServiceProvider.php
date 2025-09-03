@@ -41,7 +41,7 @@ class SeoServiceProvider extends ServiceProvider
 
         // Publish views
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/seo'),
+            __DIR__ . '/../resources/views' => resource_path('views/areia/seo'),
         ], 'seo-views');
 
         SeoMeta::observe(SeoMetaObserver::class);
