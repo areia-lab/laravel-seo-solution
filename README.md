@@ -6,30 +6,22 @@ SEO management package with Tailwind UI backend, OpenGraph & Twitter card suppor
 
 ## 🚀 Requirements
 
-- PHP **8.1+**  
-- Laravel **10.x / 11.x / 12.x**  
-- Database supported by Laravel (MySQL, PostgreSQL, SQLite, etc.)  
-- Node & NPM (if you want to customize/publish Tailwind UI)  
+- PHP **8.0+**
+- Laravel **9.x / 10.x / 11.x / 12.x**
+- Database supported by Laravel (MySQL, PostgreSQL, SQLite, etc.)
+- Node & NPM (if you want to customize/publish Tailwind UI)
 
 ---
 
 ## 📦 Installation
 
-1. **(Optional) Add local path repo** to your `composer.json` (for local dev):  
-
-```json
-"repositories": [
-  { "type": "path", "url": "packages/areia-lab/laravel-seo-solution" }
-]
-```
-
-2. **Require the package**:  
+2. **Require the package**:
 
 ```bash
-composer require areia-lab/laravel-seo-solution:*
+composer require areia-lab/laravel-seo-solution
 ```
 
-3. **Publish config, views & migrate**:  
+3. **Publish config, views & migrate**:
 
 ```bash
 php artisan vendor:publish --tag=seo-solution-config
@@ -42,46 +34,51 @@ php artisan storage:link
 
 ## ⚙️ Configuration
 
-The config file `config/seo-solution.php` contains:  
+The config file `config/seo-solution.php` contains:
 
 ```php
 return [
-  'route' => [
-    'prefix' => 'admin/seo',
-    'middleware' => ['web','auth'],
-  ],
-  'disk' => 'public',
-  'defaults' => [
-    'title_suffix' => '',
-  ],
+    'route' => [
+        'prefix' => env('SEO_PANEL_PREFIX', 'admin/seo'),
+        'middleware' => ['web'],
+    ],
+    'disk' => env('SEO_DISK', 'public'),
+    'defaults' => [
+        'title_suffix' => '',
+    ],
+    'cache' => false,
+
+    'panel' => [
+        'title_prefix'  => 'Areia Lab'
+    ],
 ];
 ```
 
-- Change `prefix` or `middleware` as needed.  
-- Run `php artisan storage:link` so uploaded OG/Twitter images are accessible.  
+- Change `prefix` or `middleware` as needed.
+- Run `php artisan storage:link` so uploaded OG/Twitter images are accessible.
 
 ---
 
 ## 🖥️ Admin Panel
 
-Manage SEO meta records via:  
+Manage SEO meta records via:
 
 ```
 /admin/seo
 ```
 
-Features:  
+Features:
 
-- Types: `global`, `page`, `model`  
-- Meta: `title`, `description`, `keywords`, `canonical`  
-- OpenGraph: `title`, `description`, `type`, `image`  
-- Twitter: `title`, `description`, `card`, `image`  
+- Types: `global`, `page`, `model`
+- Meta: `title`, `description`, `keywords`, `canonical`
+- OpenGraph: `title`, `description`, `type`, `image`
+- Twitter: `title`, `description`, `card`, `image`
 
 ---
 
 ## 📝 Usage in Blade
 
-Place directives inside your layout `<head>` section.  
+Place directives inside your layout `<head>` section.
 
 ### 1. Global
 
@@ -217,4 +214,4 @@ php artisan db:seed --class="AreiaLab\LaravelSeoSolution\Database\Seeders\SeoMet
 
 ## 📖 License
 
-MIT License – Use freely in personal & commercial projects.  
+MIT License – Use freely in personal & commercial projects.
