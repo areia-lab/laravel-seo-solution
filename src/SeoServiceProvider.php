@@ -44,11 +44,6 @@ class SeoServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/views' => resource_path('views/vendor/seo'),
         ], 'seo-views');
 
-        // Publish assets
-        $this->publishes([
-            __DIR__ . '/../public/vendor' => public_path('vendor'),
-        ], 'seo-assets');
-
         SeoMeta::observe(SeoMetaObserver::class);
 
         // Register components namespace
