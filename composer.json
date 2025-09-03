@@ -3,12 +3,6 @@
   "description": "SEO management package with Tailwind UI backend, OpenGraph & Twitter, and Blade helpers.",
   "type": "library",
   "license": "MIT",
-  "authors": [
-    {
-      "name": "Akramul Hoque",
-      "email": "akramulhoque.engineer@gmail.com"
-    }
-  ],
   "require": {
     "php": "^8.1",
     "illuminate/support": "^9.0|^10.0|^11.0|^12.0"
@@ -26,9 +20,5 @@
     }
   },
   "minimum-stability": "stable",
-  "prefer-stable": true,
-  "support": {
-    "issues": "https://github.com/areia-lab/laravel-seo-solution/issues",
-    "source": "https://github.com/areia-lab/laravel-seo-solution"
-  }
+  "prefer-stable": true
 }
