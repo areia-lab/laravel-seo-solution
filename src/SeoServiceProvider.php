@@ -55,6 +55,9 @@ class SeoServiceProvider extends ServiceProvider
         Blade::directive('seoPage', function ($expression) {
             return "<?php echo app('seo')->forPage({$expression})->render(); ?>";
         });
+        Blade::directive('seoAutoPage', function () {
+            return "<?php echo app('seo')->forPage(Route::currentRouteName())->render(); ?>";
+        });
         Blade::directive('seoModel', function ($expression) {
             return "<?php echo app('seo')->forModel({$expression})->render(); ?>";
         });

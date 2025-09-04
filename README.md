@@ -15,26 +15,35 @@ SEO management package with Tailwind UI backend, OpenGraph & Twitter card suppor
 
 ## 📦 Installation
 
-2. **Require the package**:
+1. **Require the package**:
 
 ```bash
 composer require areia-lab/laravel-seo-solution
 ```
 
-3. **Publish config, views & migrate**:
+2. **Publish config & migrate**:
 
 ```bash
-php artisan vendor:publish --tag=seo-solution-config
-php artisan vendor:publish --tag=seo-solution-views
+
+php artisan vendor:publish --tag=seo-config
+
+php artisan vendor:publish --tag=seo-migrations
+
 php artisan migrate
-php artisan storage:link
+```
+
+3. **Publish views**:
+
+```bash
+# Require For Production (Optional for Development)
+php artisan vendor:publish --tag=seo-views
 ```
 
 ---
 
 ## ⚙️ Configuration
 
-The config file `config/seo-solution.php` contains:
+The config file `config/seo.php` contains:
 
 ```php
 return [
@@ -49,7 +58,7 @@ return [
     'cache' => false,
 
     'panel' => [
-        'title_prefix'  => 'Areia Lab'
+        'title_prefix'  => 'Areia Lab SEO'
     ],
 ];
 ```
@@ -70,7 +79,7 @@ Manage SEO meta records via:
 Features:
 
 - Types: `global`, `page`, `model`
-- Meta: `title`, `description`, `keywords`, `canonical`
+- Meta: `title`, `description`, `keywords`, `author`, `robots`, `canonical`
 - OpenGraph: `title`, `description`, `type`, `image`
 - Twitter: `title`, `description`, `card`, `image`
 
@@ -79,6 +88,7 @@ Features:
 ## 📝 Usage in Blade
 
 Place directives inside your layout `<head>` section.
+Remove `<title>` (tag) or `<title>{{ config('app.name', 'Laravel') }}</title>` (this line) from your layout`<head>` section.
 
 ### 1. Global
 
@@ -97,13 +107,23 @@ or:
 ### 2. Page-specific
 
 ```blade
-@seoPage('contact')
+@seoAutoPage
+
+@seoPage('contact') // Using Route Name. e.g. "->name('contact')"
+
+# or
+
+@seoPage('contact-us') // Using URL Slug. e.g. "/contact-us"
 ```
 
 or:
 
 ```blade
 {!! app('seo')->forPage('contact')->render() !!}
+
+# or
+
+{!! app('seo')->forPage('contact-us')->render() !!}
 ```
 
 ---
@@ -111,13 +131,43 @@ or:
 ### 3. Model-based (e.g. Blog Post)
 
 ```blade
+@php
+$post = Post::first();
+@endphp
+
 @seoModel($post)
 ```
 
 or:
 
 ```blade
+@php
+$post = Post::first();
+@endphp
+
 {!! app('seo')->forModel($post)->render() !!}
+```
+
+### ✅ All Together in Layout
+
+```blade
+<head>
+  @seoGlobal
+
+  @seoAutoPage // This blade derivative is recommaded
+  # or
+  @isset($pageKey)
+    @seoPage($pageKey) // Pass Data from blade. If Data changed from pannel it may not work. you need to fix statically
+  @endisset
+  # or
+  @seoPage(Route::currentRouteName()) // it may not work if Route name means "->name('something')" not define or not match
+  # or
+  @seoPage(request()->path()) // it may not work if Route Uri "Route::get('something')" not match
+
+  @isset($post)
+      @seoModel($post)
+  @endisset
+</head>
 ```
 
 ---
@@ -135,12 +185,17 @@ or:
 
   {{-- Inject SEO --}}
   @seoGlobal
+
+  @seoAutoPage
+
   @isset($pageKey)
       @seoPage($pageKey)
   @endisset
+
   @isset($seoModel)
       @seoModel($seoModel)
   @endisset
+
 </head>
 <body>
   @yield('content')
@@ -150,7 +205,46 @@ or:
 
 ---
 
-### ✅ Page Example
+### ✅ Page Example 1
+
+```blade
+['pageKey' => request()->path() ?? (Route::currentRouteName() ?? '/')]
+
+# or
+
+@extends('layouts.app')
+
+@section('title', 'Contact Us')
+
+@section('content')
+  <h2>Contact Us</h2>
+  <p>Feel free to reach out!</p>
+@endsection
+
+@push('head')
+  @seoPage('contact')
+@endpush
+```
+
+### ✅ Page Example 2
+
+### Inside Layout
+
+```blade
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>@yield('title', 'My Website')</title>
+
+  <!-- Render SEO meta from pushed content -->
+  @stack('head')
+</head>
+<body>
+  @yield('content')
+</body>
+</html>
+```
 
 ```blade
 @extends('layouts.app')
@@ -164,6 +258,12 @@ or:
 
 @push('head')
   @seoPage('contact')
+@endpush
+
+# or
+
+@push('head')
+  @seoPage('/contact-us')
 @endpush
 ```
 
@@ -188,16 +288,28 @@ or:
 
 ---
 
-### ✅ All Together in Layout
+### ✅ For Production or Host inside (Cpanel, AWS or Other)
+
+```bash
+php artisan vendor:publish --tag=seo-views
+```
+
+```bash
+npm install
+npm run build
+```
+
+Go To `<views\areia\seo\layouts\app.blade.php>`
 
 ```blade
-<head>
-  @seoGlobal
-  @seoPage(Route::currentRouteName())
-  @isset($post)
-      @seoModel($post)
-  @endisset
-</head>
+# remove this line from `<head>`
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+
+# Add
+<!-- Styles / Scripts -->
+<link rel="stylesheet" href="{{ asset('build/assets/{Your Generated CSS File Name}.css') }}">
+<script src="{{ asset('build/assets/{Your Generated JS File Name}.js') }}" defer></script>
+
 ```
 
 ---

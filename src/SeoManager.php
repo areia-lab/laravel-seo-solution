@@ -9,9 +9,9 @@ class SeoManager
     protected ?SeoMeta $meta = null;
 
     /**
-     * Undocumented function
+     * Set SEO meta for a given Eloquent model.
      *
-     * @param [type] $model
+     * @param mixed $model
      * @return static
      */
     public function forModel($model): static
@@ -22,28 +22,32 @@ class SeoManager
                 ->where('seoable_id', $model->id)
                 ->first();
         }
+
         return $this;
     }
 
     /**
-     * Undocumented function
+     * Set SEO meta for a page.
+     *
+     * Tries the route name first, then falls back to the URL path if no meta is found.
      *
      * @param string|null $page
      * @return static
      */
     public function forPage(?string $page): static
     {
-        if ($page) {
-            $this->meta = SeoMeta::query()
-                ->where('type', 'page')
-                ->where('page', $page)
-                ->first();
+        if (!$page) {
+            return $this;
         }
+
+        $this->meta = $this->findPageMeta($page)
+            ?? $this->findPageMeta(request()->path());
+
         return $this;
     }
 
     /**
-     * Undocumented function
+     * Get global SEO meta.
      *
      * @return static
      */
@@ -54,17 +58,30 @@ class SeoManager
     }
 
     /**
-     * Undocumented function
+     * Render the SEO meta view.
+     *
+     * Falls back to global meta if no page/meta found.
      *
      * @return string
      */
     public function render(): string
     {
         $meta = $this->meta ?? SeoMeta::query()->where('type', 'global')->first();
-        if (!$meta) return '';
 
-        return view('seo-solution::components.meta', [
-            'meta' => $meta,
-        ])->render();
+        return $meta ? view('seo-solution::components.meta', ['meta' => $meta])->render() : '';
+    }
+
+    /**
+     * Helper to find page meta by key.
+     *
+     * @param string $page
+     * @return SeoMeta|null
+     */
+    protected function findPageMeta(string $page): ?SeoMeta
+    {
+        return SeoMeta::query()
+            ->where('type', 'page')
+            ->where('page', $page)
+            ->first();
     }
 }
