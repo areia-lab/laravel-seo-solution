@@ -13,12 +13,12 @@
         <meta name="keywords" content="{{ e($meta->keywords) }}">
     @endisset
 
-    @isset($meta->robots)
-        <meta name="robots" content="{{ e($meta->robots) }}">
+    @isset($meta->meta_robots)
+        <meta name="robots" content="{{ e($meta->meta_robots) }}">
     @endisset
 
-    @isset($meta->author)
-        <meta name="author" content="{{ e($meta->author) }}">
+    @isset($meta->meta_author)
+        <meta name="author" content="{{ e($meta->meta_author) }}">
     @endisset
 
     <!-- Canonical -->
