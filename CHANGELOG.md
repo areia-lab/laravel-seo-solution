@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [v1.1.1] - 2025-09-05
+
+### Removed
+
+- Removed `docs/index.html` file from the project
+
+### Changed
+
+- Minor updates in documentation references after `docs.html` removal
+
+---
+
 ## [v1.1.0] - 2025-09-04
 
 ### Added
