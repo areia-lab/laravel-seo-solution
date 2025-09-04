@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [v1.1.0] - 2025-09-04
+
+### Added
+
+- Fully redesigned documentation with **sticky left sidebar navigation**
+- Sidebar is collapsible on mobile devices
+- Examples updated for **layout, page, model, auto page, and combined usage**
+- Improved Blade usage examples (`@seoGlobal`, `@seoPage`, `@seoModel`, `@seoAutoPage`)
+- Enhanced readability and structure in docs with Tailwind styling
+
+### Changed
+
+- Updated README.md to reflect new documentation structure
+- Minor code and documentation cleanup
+
+---
+
 ## [v1.0.1] - 2025-09-04
 
 ### Fixed
