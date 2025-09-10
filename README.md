@@ -1,6 +1,12 @@
 # Areia Lab – Laravel SEO Solution
 
-SEO management package with Tailwind UI backend, OpenGraph & Twitter card support, and Blade helpers for easy rendering.
+![SEO Dashboard](public/images/seo-dashboard.png)
+
+A modern **Laravel SEO management package** with:
+
+- 📊 **Tailwind UI backend** for managing SEO meta data
+- 🌐 **OpenGraph & Twitter Card** support out of the box
+- ⚡ **Blade helpers** for easy rendering in views
 
 ---
 
