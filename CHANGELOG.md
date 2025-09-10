@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [v1.1.2] - 2025-09-10
+
+### Changed
+
+- Removed **Require Auth** option from configuration for easier setup
+- Added **Dashboard screenshot** to documentation/README
+
+---
+
 ## [v1.1.1] - 2025-09-05
 
 ### Removed

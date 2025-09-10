@@ -13,7 +13,7 @@ return [
     */
     'route' => [
         'prefix' => env('SEO_PANEL_PREFIX', 'admin/seo'), // change if needed
-        'middleware' => ['web', 'auth'], // auth protects the panel
+        'middleware' => ['web'], // auth protects the panel
     ],
 
     /*
