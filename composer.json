@@ -3,6 +3,18 @@
   "description": "SEO management package with Tailwind UI backend, OpenGraph & Twitter, and Blade helpers.",
   "type": "library",
   "license": "MIT",
+  "keywords": [
+    "laravel-seo-solution",
+    "seo",
+    "meta-tags",
+    "opengraph",
+    "seo-solution",
+    "meta-manager",
+    "seo-manager",
+    "seo-management",
+    "seo-package",
+    "areialab"
+  ],
   "require": {
     "php": "^8.1",
     "illuminate/support": "^9.0|^10.0|^11.0|^12.0"
