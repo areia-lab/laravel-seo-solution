@@ -8,6 +8,8 @@ A modern **Laravel SEO management package** with:
 - 🌐 **OpenGraph & Twitter Card** support out of the box
 - ⚡ **Blade helpers** for easy rendering in views
 
+📖 **Documentation:** [Complete Guide to Laravel SEO Solution](https://areia-lab.areiatech.com/docs/laravel-seo-solution.html)
+
 ---
 
 ## 🚀 Requirements
