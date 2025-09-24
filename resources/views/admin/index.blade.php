@@ -17,6 +17,10 @@
                         <i class="fas fa-plus"></i>
                         <span>Create New</span>
                     </a>
+                    <a href="{{ config('seo.route.dashboard_url') }}" class="btn btn-danger">
+                        <i class="fas fa-home"></i>
+                        <span class="sm:inline">{{ config('seo.route.dashboard_label') }}</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -79,7 +83,8 @@
                                     <div class="truncate max-w-xs">{{ $row->title ?? '-' }}</div>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-500">
-                                    <span title="{{ $row->updated_at }}">{{ $row->updated_at->diffForHumans() }}</span>
+                                    <span
+                                        title="{{ $row->updated_at }}">{{ $row->updated_at->diffForHumans() }}</span>
                                 </td>
                                 <td class="px-6 py-4 text-sm font-medium text-right">
                                     <div class="flex justify-end space-x-2">
@@ -194,4 +199,4 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
-    </x-seo>
+</x-seo::layout>

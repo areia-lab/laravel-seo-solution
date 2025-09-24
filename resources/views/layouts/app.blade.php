@@ -13,7 +13,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @include('seo-solution::partials.styles')
+    @include('areia.seo.partials.styles')
 
     @stack('head')
 </head>
@@ -32,6 +32,10 @@
             <a href="{{ route('seo.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"></i>
                 <span class="hidden sm:inline">Create</span>
+            </a>
+            <a href="{{ config('seo.route.dashboard_url') }}" class="btn btn-dashboard">
+                <i class="fas fa-home"></i>
+                <span class="hidden sm:inline">{{ config('seo.route.dashboard_label') }}</span>
             </a>
         </div>
     </header>
@@ -57,6 +61,9 @@
 
                     <x-seo::nav-item href="{{ route('seo.index', ['type' => 'model']) }}" icon="fa-cube text-purple-600"
                         label="Model" :count="$modelCount" :active="request('type') === 'model'" badge="bg-purple-100 text-purple-800" />
+
+                    <x-seo::nav-item href="{{ config('seo.route.dashboard_url') }}" icon="fa-dashboard text-red-600"
+                        label="{{ config('seo.route.dashboard_label') }}" badge="bg-red-100 text-red-800" />
                 </nav>
 
             </div>
@@ -79,7 +86,7 @@
     <!-- Mobile sidebar overlay -->
     <div id="mobileOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
 
-    @include('seo-solution::partials.scripts')
+    @include('areia.seo.partials.scripts')
 
     @stack('scripts')
 </body>
