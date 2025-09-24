@@ -43,7 +43,6 @@ php artisan migrate
 3. **Publish views**:
 
 ```bash
-# Require For Production (Optional for Development)
 php artisan vendor:publish --tag=seo-views
 ```
 

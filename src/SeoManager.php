@@ -68,7 +68,7 @@ class SeoManager
     {
         $meta = $this->meta ?? SeoMeta::query()->where('type', 'global')->first();
 
-        return $meta ? view('seo-solution::components.meta', ['meta' => $meta])->render() : '';
+        return $meta ? view('areia.seo.components.meta', ['meta' => $meta])->render() : '';
     }
 
     /**
