@@ -14,6 +14,6 @@ class NavItem extends Component
 
     public function render()
     {
-        return view('seo-solution::components.nav-item');
+        return view('areia.seo.components.nav-item');
     }
 }

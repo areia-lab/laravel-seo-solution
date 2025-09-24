@@ -14,6 +14,9 @@ return [
     'route' => [
         'prefix' => env('SEO_PANEL_PREFIX', 'admin/seo'), // change if needed
         'middleware' => ['web'], // auth protects the panel
+
+        'dashboard_label' => 'Back to Dashboard',
+        'dashboard_url'   => '/',
     ],
 
     /*

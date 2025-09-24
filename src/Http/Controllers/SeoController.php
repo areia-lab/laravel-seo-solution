@@ -27,14 +27,12 @@ class SeoController extends Controller
         // Paginate results
         $items = $query->orderBy('updated_at', 'desc')->paginate(15)->withQueryString();
 
-        return view('seo-solution::admin.index', compact(
-            'items',
-        ));
+        return view('areia.seo.admin.index', compact('items'));
     }
 
     public function create()
     {
-        return view('seo-solution::admin.form', ['seo' => new SeoMeta()]);
+        return view('areia.seo.admin.form', ['seo' => new SeoMeta()]);
     }
 
     public function store(SeoMetaRequest $request)
@@ -49,7 +47,7 @@ class SeoController extends Controller
 
     public function edit(SeoMeta $seo)
     {
-        return view('seo-solution::admin.form', compact('seo'));
+        return view('areia.seo.admin.form', compact('seo'));
     }
 
     public function update(SeoMetaRequest $request, SeoMeta $seo)

@@ -43,7 +43,7 @@ class Layout extends Component
 
     public function render()
     {
-        return view('seo-solution::layouts.app', [
+        return view('areia.seo.layouts.app', [
             'totalCount'  => $this->totalCount,
             'globalCount' => $this->globalCount,
             'pageCount'   => $this->pageCount,

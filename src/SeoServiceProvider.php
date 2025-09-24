@@ -21,8 +21,6 @@ class SeoServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
-        $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'seo-solution');
 
         // Publish configurations
         $this->publishes([
@@ -49,6 +47,7 @@ class SeoServiceProvider extends ServiceProvider
         // Register components namespace
         Blade::componentNamespace('AreiaLab\\LaravelSeoSolution\\View\\Components', 'seo');
 
+        // Blade directives
         Blade::directive('seoGlobal', function () {
             return "<?php echo app('seo')->global()->render(); ?>";
         });
