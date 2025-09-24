@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [v1.1.4] - 2025-09-24
+
+### Changed
+
+- Refactored package resources to be **publish-only** (migrations, views, and seeders)
+- Updated Blade components and includes to use published paths (`areia.seo.*`)
+- Removed automatic view and migration loading from the service provider
+- Adjusted service provider to register component namespace only (`x-seo::`) without auto-loading views
+
+---
+
 ## [v1.1.3] - 2025-09-14
 
 ### Changed
