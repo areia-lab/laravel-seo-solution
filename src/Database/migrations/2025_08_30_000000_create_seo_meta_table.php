@@ -30,6 +30,8 @@ return new class extends Migration {
             $table->string('twitter_image')->nullable();
             $table->string('twitter_card')->nullable()->default('summary_large_image');
 
+            $table->longText('schema_code')->nullable();
+
             $table->timestamps();
 
             $table->unique(['type', 'page'], 'seo_unique_type_page');

@@ -28,6 +28,8 @@ class SeoMeta extends Model
         'twitter_image',
         'twitter_card',
 
+        'schema_code',
+
         'seoable_type',
         'seoable_id',
     ];
