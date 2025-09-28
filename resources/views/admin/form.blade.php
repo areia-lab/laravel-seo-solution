@@ -84,16 +84,23 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Model Class</label>
-                        <input type="text" name="seoable_type" value="{{ old('seoable_type', $seo->seoable_type) }}"
+                        <input type="text" id="modelClass" name="seoable_type"
+                            value="{{ old('seoable_type', $seo->seoable_type) }}"
                             class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                             placeholder="App\Models\Post">
                     </div>
+
+                    <!-- Model Instance (AJAX Searchable Dropdown) -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Model ID</label>
-                        <input type="number" name="seoable_id" value="{{ old('seoable_id', $seo->seoable_id) }}"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                            placeholder="1">
+                        <select id="modelInstance" name="seoable_id"
+                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                            <option value="{{ old('seoable_id', $seo->seoable_id) }}">
+                                {{ old('seoable_id', $seo->seoable_id) ? 'Selected ID: ' . old('seoable_id', $seo->seoable_id) : 'Select Instance' }}
+                            </option>
+                        </select>
                     </div>
+
                 </div>
                 <p class="mt-2 text-xs text-gray-500">Enter the full model class and ID of the specific instance</p>
             </div>
@@ -374,6 +381,68 @@
 
             input[type="file"]::-webkit-file-upload-button:hover {
                 background: #dbeafe;
+            }
+        </style>
+
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('#modelInstance').select2({
+                    placeholder: 'Search instance...',
+                    ajax: {
+                        url: '/api/model-instances',
+                        data: function(params) {
+                            return {
+                                q: params.term,
+                                model: $('#modelClass').val() // read from text input
+                            };
+                        },
+                        processResults: function(data) {
+                            return {
+                                results: data
+                            };
+                        }
+                    }
+                });
+
+                // If user changes model class input, clear instance select
+                $('#modelClass').on('change keyup', function() {
+                    $('#modelInstance').val(null).trigger('change');
+                });
+            });
+        </script>
+
+        <style>
+            /* Match Select2 to Tailwind input design */
+            .select2-container--default .select2-selection--single {
+                height: 42px;
+                width: 400px;
+                border-radius: 0.5rem;
+                border: 1px solid #d1d5db;
+                /* gray-300 */
+                padding: 6px 12px;
+                background-color: #fff;
+                display: flex;
+                align-items: center;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                color: #111827;
+                /* gray-900 */
+                font-size: 0.95rem;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                height: 100%;
+                right: 10px;
+            }
+
+            .select2-dropdown {
+                border-radius: 0.5rem;
+                border: 1px solid #d1d5db;
             }
         </style>
     @endpush

@@ -83,4 +83,35 @@ class SeoController extends Controller
 
         return $data;
     }
+
+    public function getInstance(Request $request)
+    {
+        $modelClass = $request->get('model'); // Example: App\Models\Post
+        $search = $request->get('q');
+
+        if (!class_exists($modelClass)) {
+            return response()->json([]);
+        }
+
+        $query = $modelClass::query();
+
+        if ($search) {
+            // Assume model has 'title' or 'name' field for searching
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('name', 'like', "%{$search}%");
+            });
+        }
+
+        $results = $query->limit(20)->get(['id', 'title', 'name']);
+
+        return response()->json(
+            $results->map(function ($item) {
+                return [
+                    'id'   => $item->id,
+                    'text' => $item->title ?? $item->name ?? "ID {$item->id}",
+                ];
+            })
+        );
+    }
 }

@@ -13,4 +13,5 @@ Route::group([
     Route::get('/{seo}/edit', [SeoController::class, 'edit'])->name('seo.edit');
     Route::put('/{seo}', [SeoController::class, 'update'])->name('seo.update');
     Route::delete('/{seo}', [SeoController::class, 'destroy'])->name('seo.destroy');
+    Route::get('/api/model-instances', [SeoController::class, 'getInstance'])->name('seo.model.instance');
 });
