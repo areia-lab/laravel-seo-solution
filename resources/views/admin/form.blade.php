@@ -102,7 +102,7 @@
                     </div>
 
                 </div>
-                <p class="mt-2 text-xs text-gray-500">Enter the full model class and ID of the specific instance</p>
+                <p class="mt-2 text-xs text-gray-500">Enter the full model class and Select the specific instance</p>
             </div>
 
             <!-- Basic SEO Fields -->
