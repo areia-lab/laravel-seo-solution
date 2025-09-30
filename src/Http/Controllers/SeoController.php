@@ -2,10 +2,11 @@
 
 namespace AreiaLab\LaravelSeoSolution\Http\Controllers;
 
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Storage;
 use AreiaLab\LaravelSeoSolution\Models\SeoMeta;
 use AreiaLab\LaravelSeoSolution\Http\Requests\SeoMetaRequest;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class SeoController extends Controller
@@ -14,7 +15,7 @@ class SeoController extends Controller
      * Undocumented function
      *
      * @param Request $request
-     * @return void
+     * @return View
      */
     public function index(Request $request)
     {
