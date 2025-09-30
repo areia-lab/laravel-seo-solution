@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [v1.2.1] - 2025-09-30
+
+### Route Bug Fixed
+
+- Ajax route bug fixed and dynamically realtime instance shown
+
+---
+
 ## [v1.2.0] - 2025-09-30
 
 ### Added

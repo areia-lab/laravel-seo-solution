@@ -92,7 +92,7 @@
 
                     <!-- Model Instance (AJAX Searchable Dropdown) -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Model ID</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Select Model Instance ID</label>
                         <select id="modelInstance" name="seoable_id"
                             class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                             <option value="{{ old('seoable_id', $seo->seoable_id) }}">
@@ -406,11 +406,13 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
         <script>
+            const modelInstancesUrl = "{{ route('seo.model.instance') }}";
+
             $(document).ready(function() {
                 $('#modelInstance').select2({
                     placeholder: 'Search instance...',
                     ajax: {
-                        url: '/api/model-instances',
+                        url: modelInstancesUrl,
                         data: function(params) {
                             return {
                                 q: params.term,
