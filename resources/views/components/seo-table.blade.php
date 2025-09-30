@@ -105,3 +105,49 @@
         </div>
     </div>
 @endif
+
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    .pagination li {
+        margin: 0 0.25rem;
+    }
+
+    .pagination a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.375rem;
+        border: 1px solid #e2e8f0;
+        color: #4a5568;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .pagination a:hover {
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+
+    .pagination .active a {
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+
+    .table-row {
+        transition: all 0.2s ease;
+    }
+
+    .table-row:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>

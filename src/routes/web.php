@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use AreiaLab\LaravelSeoSolution\Http\Controllers\SeoController;
+use AreiaLab\LaravelSeoSolution\Http\Controllers\GetInstanceController;
+use Illuminate\Support\Facades\Route;
 
 Route::group([
     'prefix' => config('seo.route.prefix'),
@@ -13,5 +14,5 @@ Route::group([
     Route::get('/{seo}/edit', [SeoController::class, 'edit'])->name('seo.edit');
     Route::put('/{seo}', [SeoController::class, 'update'])->name('seo.update');
     Route::delete('/{seo}', [SeoController::class, 'destroy'])->name('seo.destroy');
-    Route::get('/api/model-instances', [SeoController::class, 'getInstance'])->name('seo.model.instance');
+    Route::get('/api/model-instances', GetInstanceController::class)->name('seo.model.instance');
 });
