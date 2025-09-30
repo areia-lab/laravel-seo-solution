@@ -49,4 +49,9 @@
     @isset($meta->twitter_image)
         <meta name="twitter:image" content="{{ $meta->twitter_image }}">
     @endisset
+
+    <!-- Schema Code -->
+    @isset($meta->schema_code)
+        {!! $meta->schema_code !!}
+    @endisset
 @endif

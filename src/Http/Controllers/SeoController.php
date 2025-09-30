@@ -2,10 +2,11 @@
 
 namespace AreiaLab\LaravelSeoSolution\Http\Controllers;
 
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Storage;
 use AreiaLab\LaravelSeoSolution\Models\SeoMeta;
 use AreiaLab\LaravelSeoSolution\Http\Requests\SeoMetaRequest;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class SeoController extends Controller
@@ -14,7 +15,7 @@ class SeoController extends Controller
      * Undocumented function
      *
      * @param Request $request
-     * @return void
+     * @return View
      */
     public function index(Request $request)
     {
@@ -82,36 +83,5 @@ class SeoController extends Controller
         }
 
         return $data;
-    }
-
-    public function getInstance(Request $request)
-    {
-        $modelClass = $request->get('model'); // Example: App\Models\Post
-        $search = $request->get('q');
-
-        if (!class_exists($modelClass)) {
-            return response()->json([]);
-        }
-
-        $query = $modelClass::query();
-
-        if ($search) {
-            // Assume model has 'title' or 'name' field for searching
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                    ->orWhere('name', 'like', "%{$search}%");
-            });
-        }
-
-        $results = $query->limit(20)->get(['id', 'title', 'name']);
-
-        return response()->json(
-            $results->map(function ($item) {
-                return [
-                    'id'   => $item->id,
-                    'text' => $item->title ?? $item->name ?? "ID {$item->id}",
-                ];
-            })
-        );
     }
 }
