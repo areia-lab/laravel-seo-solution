@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [v1.2.0] - 2025-09-30
+
+### Added
+
+- Introduced **Page Schema support** (JSON-LD / custom scripts) with textarea field in SEO settings
+- Added Font Awesome `fa-code` icon for schema field section
+- New placeholder text and helper description for schema editor
+
+### Changed
+
+- Improved form UX for schema editing (larger textarea with better readability)
+- Updated UI consistency by using correct Font Awesome icons
+
+---
+
 ## [v1.1.4] - 2025-09-24
 
 ### Changed
