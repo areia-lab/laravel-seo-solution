@@ -1,4 +1,80 @@
 <x-seo::layout title="SEO Manager">
+    @push('head')
+        <style>
+            .type-option {
+                transition: all 0.2s ease;
+            }
+
+            .type-option:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Improved input styling */
+            input,
+            textarea,
+            select {
+                border: 1px solid #d1d5db !important;
+                background-color: white !important;
+                color: #111827 !important;
+                padding: 0.625rem 1rem !important;
+            }
+
+            input:focus,
+            textarea:focus,
+            select:focus {
+                outline: none;
+                border-color: transparent !important;
+                box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
+            }
+
+            /* File input styling */
+            input[type="file"]::-webkit-file-upload-button {
+                background: #eff6ff;
+                color: #1d4ed8;
+                font-weight: 600;
+                border: 0;
+                padding: 0.5rem 1rem;
+                border-radius: 9999px;
+                margin-right: 1rem;
+                transition: all 0.2s;
+            }
+
+            input[type="file"]::-webkit-file-upload-button:hover {
+                background: #dbeafe;
+            }
+
+            /* Match Select2 to Tailwind input design */
+            .select2-container--default .select2-selection--single {
+                height: 42px;
+                width: 400px;
+                border-radius: 0.5rem;
+                border: 1px solid #d1d5db;
+                /* gray-300 */
+                padding: 6px 12px;
+                background-color: #fff;
+                display: flex;
+                align-items: center;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                color: #111827;
+                /* gray-900 */
+                font-size: 0.95rem;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                height: 100%;
+                right: 10px;
+            }
+
+            .select2-dropdown {
+                border-radius: 0.5rem;
+                border: 1px solid #d1d5db;
+            }
+        </style>
+    @endpush
+
     <div class="bg-white rounded-xl shadow-sm p-6">
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-bold text-gray-900">{{ $seo->exists ? 'Edit SEO' : 'Create SEO' }}</h2>
@@ -310,7 +386,7 @@
         </form>
     </div>
 
-    @push('head')
+    @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 // Function to toggle fields based on selected type
@@ -355,56 +431,6 @@
                 });
             });
         </script>
-
-        <style>
-            .type-option {
-                transition: all 0.2s ease;
-            }
-
-            .type-option:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-
-            /* Improved input styling */
-            input,
-            textarea,
-            select {
-                border: 1px solid #d1d5db !important;
-                background-color: white !important;
-                color: #111827 !important;
-                padding: 0.625rem 1rem !important;
-            }
-
-            input:focus,
-            textarea:focus,
-            select:focus {
-                outline: none;
-                border-color: transparent !important;
-                box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
-            }
-
-            /* File input styling */
-            input[type="file"]::-webkit-file-upload-button {
-                background: #eff6ff;
-                color: #1d4ed8;
-                font-weight: 600;
-                border: 0;
-                padding: 0.5rem 1rem;
-                border-radius: 9999px;
-                margin-right: 1rem;
-                transition: all 0.2s;
-            }
-
-            input[type="file"]::-webkit-file-upload-button:hover {
-                background: #dbeafe;
-            }
-        </style>
-
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         <script>
             const modelInstancesUrl = "{{ route('seo.model.instance') }}";
 
@@ -433,36 +459,5 @@
                 });
             });
         </script>
-
-        <style>
-            /* Match Select2 to Tailwind input design */
-            .select2-container--default .select2-selection--single {
-                height: 42px;
-                width: 400px;
-                border-radius: 0.5rem;
-                border: 1px solid #d1d5db;
-                /* gray-300 */
-                padding: 6px 12px;
-                background-color: #fff;
-                display: flex;
-                align-items: center;
-            }
-
-            .select2-container--default .select2-selection--single .select2-selection__rendered {
-                color: #111827;
-                /* gray-900 */
-                font-size: 0.95rem;
-            }
-
-            .select2-container--default .select2-selection--single .select2-selection__arrow {
-                height: 100%;
-                right: 10px;
-            }
-
-            .select2-dropdown {
-                border-radius: 0.5rem;
-                border: 1px solid #d1d5db;
-            }
-        </style>
     @endpush
 </x-seo::layout>
