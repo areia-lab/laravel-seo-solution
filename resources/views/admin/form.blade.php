@@ -1,78 +1,6 @@
 <x-seo::layout title="SEO Manager">
     @push('head')
-        <style>
-            .type-option {
-                transition: all 0.2s ease;
-            }
-
-            .type-option:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-
-            /* Improved input styling */
-            input,
-            textarea,
-            select {
-                border: 1px solid #d1d5db !important;
-                background-color: white !important;
-                color: #111827 !important;
-                padding: 0.625rem 1rem !important;
-            }
-
-            input:focus,
-            textarea:focus,
-            select:focus {
-                outline: none;
-                border-color: transparent !important;
-                box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
-            }
-
-            /* File input styling */
-            input[type="file"]::-webkit-file-upload-button {
-                background: #eff6ff;
-                color: #1d4ed8;
-                font-weight: 600;
-                border: 0;
-                padding: 0.5rem 1rem;
-                border-radius: 9999px;
-                margin-right: 1rem;
-                transition: all 0.2s;
-            }
-
-            input[type="file"]::-webkit-file-upload-button:hover {
-                background: #dbeafe;
-            }
-
-            /* Match Select2 to Tailwind input design */
-            .select2-container--default .select2-selection--single {
-                height: 42px;
-                width: 400px;
-                border-radius: 0.5rem;
-                border: 1px solid #d1d5db;
-                /* gray-300 */
-                padding: 6px 12px;
-                background-color: #fff;
-                display: flex;
-                align-items: center;
-            }
-
-            .select2-container--default .select2-selection--single .select2-selection__rendered {
-                color: #111827;
-                /* gray-900 */
-                font-size: 0.95rem;
-            }
-
-            .select2-container--default .select2-selection--single .select2-selection__arrow {
-                height: 100%;
-                right: 10px;
-            }
-
-            .select2-dropdown {
-                border-radius: 0.5rem;
-                border: 1px solid #d1d5db;
-            }
-        </style>
+        @include('areia.seo.partials.form-style')
     @endpush
 
     <div class="bg-white rounded-xl shadow-sm p-6">
@@ -94,56 +22,66 @@
             <div class="bg-gray-50 p-4 rounded-lg">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <label class="relative flex cursor-pointer rounded-lg border p-4 focus:outline-none type-option">
-                        <input type="radio" name="type" value="global" class="sr-only"
-                            {{ old('type', $seo->type ?? 'global') === 'global' ? 'checked' : '' }}>
-                        <div class="flex w-full items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="text-sm">
-                                    <p class="font-medium text-gray-900">Global</p>
-                                    <p class="text-gray-500">Site-wide SEO settings</p>
+                    @if (config('seo.menu.global'))
+                        <label
+                            class="relative flex cursor-pointer rounded-lg border p-4 focus:outline-none type-option">
+                            <input type="radio" name="type" value="global" class="sr-only"
+                                {{ old('type', $seo->type ?? 'global') === 'global' ? 'checked' : '' }}>
+                            <div class="flex w-full items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="text-sm">
+                                        <p class="font-medium text-gray-900">Global</p>
+                                        <p class="text-gray-500">Site-wide SEO settings</p>
+                                    </div>
                                 </div>
+                                <i class="fas fa-globe text-green-600 text-xl"></i>
                             </div>
-                            <i class="fas fa-globe text-green-600 text-xl"></i>
-                        </div>
-                        <div
-                            class="{{ old('type', $seo->type ?? 'global') === 'global' ? 'border-blue-500' : 'border-transparent' }} pointer-events-none absolute -inset-px rounded-lg border-2">
-                        </div>
-                    </label>
+                            <div
+                                class="{{ old('type', $seo->type ?? 'global') === 'global' ? 'border-blue-500' : 'border-transparent' }} pointer-events-none absolute -inset-px rounded-lg border-2">
+                            </div>
+                        </label>
+                    @endif
 
-                    <label class="relative flex cursor-pointer rounded-lg border p-4 focus:outline-none type-option">
-                        <input type="radio" name="type" value="page" class="sr-only"
-                            {{ old('type', $seo->type ?? 'global') === 'page' ? 'checked' : '' }}>
-                        <div class="flex w-full items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="text-sm">
-                                    <p class="font-medium text-gray-900">Page</p>
-                                    <p class="text-gray-500">Specific page SEO</p>
+                    @if (config('seo.menu.pages'))
+                        <label
+                            class="relative flex cursor-pointer rounded-lg border p-4 focus:outline-none type-option">
+                            <input type="radio" name="type" value="page" class="sr-only"
+                                {{ old('type', $seo->type ?? 'global') === 'page' ? 'checked' : '' }}>
+                            <div class="flex w-full items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="text-sm">
+                                        <p class="font-medium text-gray-900">Page</p>
+                                        <p class="text-gray-500">Specific page SEO</p>
+                                    </div>
                                 </div>
+                                <i class="fas fa-file text-yellow-600 text-xl"></i>
                             </div>
-                            <i class="fas fa-file text-yellow-600 text-xl"></i>
-                        </div>
-                        <div
-                            class="{{ old('type', $seo->type ?? 'global') === 'page' ? 'border-blue-500' : 'border-transparent' }} pointer-events-none absolute -inset-px rounded-lg border-2">
-                        </div>
-                    </label>
+                            <div
+                                class="{{ old('type', $seo->type ?? 'global') === 'page' ? 'border-blue-500' : 'border-transparent' }} pointer-events-none absolute -inset-px rounded-lg border-2">
+                            </div>
+                        </label>
+                    @endif
 
-                    <label class="relative flex cursor-pointer rounded-lg border p-4 focus:outline-none type-option">
-                        <input type="radio" name="type" value="model" class="sr-only"
-                            {{ old('type', $seo->type ?? 'global') === 'model' ? 'checked' : '' }}>
-                        <div class="flex w-full items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="text-sm">
-                                    <p class="font-medium text-gray-900">Model</p>
-                                    <p class="text-gray-500">Model instance SEO</p>
+                    @if (config('seo.menu.model'))
+                        <label
+                            class="relative flex cursor-pointer rounded-lg border p-4 focus:outline-none type-option">
+                            <input type="radio" name="type" value="model" class="sr-only"
+                                {{ old('type', $seo->type ?? 'global') === 'model' ? 'checked' : '' }}>
+                            <div class="flex w-full items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="text-sm">
+                                        <p class="font-medium text-gray-900">Model</p>
+                                        <p class="text-gray-500">Model instance SEO</p>
+                                    </div>
                                 </div>
+                                <i class="fas fa-cube text-purple-600 text-xl"></i>
                             </div>
-                            <i class="fas fa-cube text-purple-600 text-xl"></i>
-                        </div>
-                        <div
-                            class="{{ old('type', $seo->type ?? 'global') === 'model' ? 'border-blue-500' : 'border-transparent' }} pointer-events-none absolute -inset-px rounded-lg border-2">
-                        </div>
-                    </label>
+                            <div
+                                class="{{ old('type', $seo->type ?? 'global') === 'model' ? 'border-blue-500' : 'border-transparent' }} pointer-events-none absolute -inset-px rounded-lg border-2">
+                            </div>
+                        </label>
+                    @endif
+
                 </div>
             </div>
 
@@ -178,183 +116,8 @@
                     </div>
 
                 </div>
-                <p class="mt-2 text-xs text-gray-500">Enter the full model class and Select the specific instance</p>
-            </div>
-
-            <!-- Basic SEO Fields -->
-            <div class="bg-white p-4 rounded-lg border border-gray-200">
-                <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                    <i class="fas fa-tags mr-2 text-blue-500"></i>
-                    Basic SEO Information
-                </h3>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
-                        <input type="text" name="title" value="{{ old('title', $seo->title) }}"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                        <p class="mt-1 text-xs text-gray-500">Recommended: 50-60 characters</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Canonical URL</label>
-                        <input type="url" name="canonical" value="{{ old('canonical', $seo->canonical) }}"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                            placeholder="https://example.com/page">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <!-- Meta Robots -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Meta Robots</label>
-                        <select name="meta_robots"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                            @php
-                                $robotOptions = [
-                                    'index, follow' => 'Index, Follow',
-                                    'noindex, follow' => 'Noindex, Follow',
-                                    'index, nofollow' => 'Index, Nofollow',
-                                    'noindex, nofollow' => 'Noindex, Nofollow',
-                                ];
-                            @endphp
-                            @foreach ($robotOptions as $value => $label)
-                                <option value="{{ $value }}"
-                                    {{ old('meta_robots', $seo->meta_robots) === $value ? 'selected' : '' }}>
-                                    {{ $label }}
-                                </option>
-                            @endforeach
-                        </select>
-                        <p class="mt-1 text-xs text-gray-500">Select how search engines should index this page</p>
-                    </div>
-
-                    {{-- Meta Author --}}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Meta Author</label>
-                        <input type="text" name="meta_author" value="{{ old('meta_author', $seo->meta_author) }}"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                            placeholder="John Doe">
-                        <p class="mt-1 text-xs text-gray-500">Enter the content author’s name</p>
-                    </div>
-                </div>
-
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
-                    <textarea name="description" rows="3"
-                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">{{ old('description', $seo->description) }}</textarea>
-                    <p class="mt-1 text-xs text-gray-500">Recommended: 150-160 characters</p>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Keywords (comma separated)</label>
-                    <input type="text" name="keywords" value="{{ old('keywords', $seo->keywords) }}"
-                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    <p class="mt-1 text-xs text-gray-500">Separate keywords with commas (e.g. seo, marketing, web)</p>
-                </div>
-            </div>
-
-            <!-- OpenGraph / Twitter -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white p-4 rounded-lg border border-gray-200">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                        <i class="fab fa-facebook mr-2 text-blue-600"></i>
-                        OpenGraph Meta Tags
-                    </h3>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">OG Title</label>
-                        <input type="text" name="og_title" value="{{ old('og_title', $seo->og_title) }}"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">OG Description</label>
-                        <textarea name="og_description" rows="2"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">{{ old('og_description', $seo->og_description) }}</textarea>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">OG Type</label>
-                        <input type="text" name="og_type"
-                            value="{{ old('og_type', $seo->og_type ?? 'website') }}"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">OG Image</label>
-                        <input type="file" name="og_image" accept="image/*"
-                            class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                        @if ($seo->og_image)
-                            <div class="mt-3 flex items-center">
-                                <img src="{{ $seo->og_image }}" class="h-20 w-20 object-cover rounded border">
-                                <span class="ml-3 text-sm text-gray-500">Current image</span>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="bg-white p-4 rounded-lg border border-gray-200">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                        <i class="fab fa-twitter mr-2 text-blue-400"></i>
-                        Twitter Meta Tags
-                    </h3>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Twitter Title</label>
-                        <input type="text" name="twitter_title"
-                            value="{{ old('twitter_title', $seo->twitter_title) }}"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Twitter Description</label>
-                        <textarea name="twitter_description" rows="2"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">{{ old('twitter_description', $seo->twitter_description) }}</textarea>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Twitter Card Type</label>
-                        <select name="twitter_card"
-                            class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                            @php $card = old('twitter_card', $seo->twitter_card ?? 'summary_large_image'); @endphp
-                            <option value="summary" {{ $card === 'summary' ? 'selected' : '' }}>Summary</option>
-                            <option value="summary_large_image"
-                                {{ $card === 'summary_large_image' ? 'selected' : '' }}>
-                                Summary with Large Image
-                            </option>
-                            <option value="app" {{ $card === 'app' ? 'selected' : '' }}>App</option>
-                            <option value="player" {{ $card === 'player' ? 'selected' : '' }}>Player</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Twitter Image</label>
-                        <input type="file" name="twitter_image" accept="image/*"
-                            class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                        @if ($seo->twitter_image)
-                            <div class="mt-3 flex items-center">
-                                <img src="{{ $seo->twitter_image }}" class="h-20 w-20 object-cover rounded border">
-                                <span class="ml-3 text-sm text-gray-500">Current image</span>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <!-- Schema Fields -->
-            <div class="bg-white p-4 rounded-lg border border-gray-200">
-                <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                    <i class="fas fa-code mr-2 text-blue-500"></i>
-                    Page Schema
-                </h3>
-
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Page Schema</label>
-                    <textarea name="schema_code" rows="6"
-                        class="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                        placeholder="Paste your JSON-LD or schema script here...">{{ old('schema_code', $seo->schema_code ?? '') }}</textarea>
-                    <p class="mt-1 text-xs text-gray-500">Recommended: Add JSON-LD or other structured data scripts.
-                    </p>
-                </div>
+                <p class="mt-2 text-xs text-gray-500">Enter the full model class and Select the specific instance
+                </p>
             </div>
 
             <!-- Error Display -->
@@ -371,6 +134,16 @@
                     </ul>
                 </div>
             @endif
+
+            <!-- Basic SEO Fields -->
+            @include('areia.seo.partials.basic-field', ['seo' => $seo])
+
+            <!-- OpenGraph / Twitter -->
+            @include('areia.seo.partials.og-field', ['seo' => $seo])
+
+            <!-- Schema Fields -->
+            @include('areia.seo.partials.schema-field', ['seo' => $seo])
+
 
             <!-- Form Actions -->
             <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">

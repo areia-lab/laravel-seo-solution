@@ -43,4 +43,17 @@ class SeoMeta extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * Mutator to normalize page attribute when storing.
+     * Removes leading/trailing slashes except for home page '/'.
+     */
+    public function setPageAttribute(?string $value)
+    {
+        if ($value === '/') {
+            $this->attributes['page'] = '/';
+        } else {
+            $this->attributes['page'] = $value ? trim($value, '/') : null;
+        }
+    }
 }
