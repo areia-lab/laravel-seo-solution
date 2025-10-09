@@ -64,4 +64,10 @@ return [
         'title_prefix'  => env('SEO_PANEL_TITLE', 'Areia Lab SEO'),
     ],
 
+    'menu' => [
+        'global' => true,
+        'pages' => true,
+        'model' => false,
+    ]
+
 ];
