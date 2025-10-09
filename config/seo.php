@@ -64,10 +64,23 @@ return [
         'title_prefix'  => env('SEO_PANEL_TITLE', 'Areia Lab SEO'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Panel Menu Settings
+    |--------------------------------------------------------------------------
+    |
+    | Define which sidebar menu sections should be visible in the admin panel.
+    | Set each option to `true` to enable or `false` to disable.
+    |
+    | - global : Controls access to global menu items (e.g., dashboard, settings)
+    | - pages  : Controls visibility of custom page management
+    | - model  : Controls access to model-based CRUD menus
+    |
+    */
     'menu' => [
-        'global' => true,
-        'pages' => true,
-        'model' => false,
-    ]
+        'global' => true,  // Show global items
+        'pages'  => true,  // Enable custom pages section
+        'model'  => false, // Hide model management by default
+    ],
 
 ];
