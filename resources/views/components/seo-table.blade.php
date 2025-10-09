@@ -11,9 +11,9 @@
                         Type
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Page/Model</th>
+                        Identifier / Page / Model</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Title
+                        Meta Title
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Updated</th>
@@ -46,8 +46,15 @@
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-600">
                             @if ($row->type === 'model')
-                                <span
-                                    class="font-mono">{{ class_basename($row->seoable_type) }}#{{ $row->seoable_id }}</span>
+                                @php
+                                    $related = $row->seoable;
+                                    $relatedClass = class_basename($row->seoable_type);
+                                    $relatedLabel = $related->title ?? ($related->name ?? "ID {$row->seoable_id}");
+                                @endphp
+
+                                <span class="font-mono">
+                                    {{ $relatedClass }} — {{ Str::limit($relatedLabel, 40) }}
+                                </span>
                             @else
                                 {{ $row->page ?? '-' }}
                             @endif
@@ -105,49 +112,3 @@
         </div>
     </div>
 @endif
-
-<style>
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 1.5rem;
-    }
-
-    .pagination li {
-        margin: 0 0.25rem;
-    }
-
-    .pagination a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 0.375rem;
-        border: 1px solid #e2e8f0;
-        color: #4a5568;
-        font-weight: 500;
-        transition: all 0.2s ease;
-    }
-
-    .pagination a:hover {
-        background-color: var(--primary);
-        color: white;
-        border-color: var(--primary);
-    }
-
-    .pagination .active a {
-        background-color: var(--primary);
-        color: white;
-        border-color: var(--primary);
-    }
-
-    .table-row {
-        transition: all 0.2s ease;
-    }
-
-    .table-row:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-</style>

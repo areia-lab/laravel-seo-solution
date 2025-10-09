@@ -19,8 +19,8 @@
     @if (app()->environment('local'))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
-        {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-BYGJbiDV.css') }}" />
-        <script src="{{ asset('build/assets/app-Bj43h_rG.js') }}"></script> --}}
+        <link rel="stylesheet" href="{{ asset('build/assets/app-BYGJbiDV.css') }}" />
+        <script src="{{ asset('build/assets/app-Bj43h_rG.js') }}"></script>
     @endif
 
     {{-- Select2 --}}
@@ -117,19 +117,6 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     @include('areia.seo.partials.scripts')
-
-    {{-- Mobile Menu Toggle --}}
-    <script>
-        $(function() {
-            $('#mobileMenuButton').on('click', function() {
-                $('#sidebar, #mobileOverlay').toggleClass('hidden');
-            });
-
-            $('#mobileOverlay').on('click', function() {
-                $('#sidebar, #mobileOverlay').addClass('hidden');
-            });
-        });
-    </script>
 
     @stack('scripts')
 </body>

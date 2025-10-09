@@ -26,7 +26,7 @@ class SeoController extends Controller
         }
 
         // Paginate results
-        $items = $query->orderBy('updated_at', 'desc')->paginate(15)->withQueryString();
+        $items = $query->orderBy('updated_at', 'desc')->paginate()->withQueryString();
 
         return view('areia.seo.admin.index', compact('items'));
     }
