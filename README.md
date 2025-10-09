@@ -278,6 +278,25 @@ $post = Post::first();
 
 ### ✅ Model Example
 
+- First enable from config
+
+```bash
+'menu' => [
+  'model'  => true, // Hide model management by default
+]
+```
+
+```bash
+# inside your all seo able model you need to add 'HasSeoMeta' Trait
+# It require for getting only seo free model instance
+# In your 'Blog, Service, Product, Post' model jus add
+
+use AreiaLab\LaravelSeoSolution\Traits\HasSeoMeta;
+
+use HasSeoMeta;
+
+```
+
 ```blade
 @extends('layouts.app')
 

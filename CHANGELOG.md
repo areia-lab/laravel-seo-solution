@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [v1.3.0] - 2025-10-09
+
+### Added
+
+- Auto-trimming of page slashes when storing SEO metadata, while allowing `'/'` for home page.
+- Full support for home page `/` in `@seoAutoPage` directive.
+- Enhanced `SeoManager` to fallback from page key to current URL automatically.
+- Sidebar navigation improvements and dynamic count badges for all SEO types.
+- Blade templates updated for responsive mobile sidebar toggling.
+
+### Fixed
+
+- Fixed issue with `/` home route not displaying SEO meta.
+- Fixed bug with storing duplicate slashes in page SEO records.
+- Improved `forPage()` and `findPageMeta()` to normalize paths consistently.
+
+### Changed
+
+- New trait `HasSeoMeta` added for get only seo free model instances.
+- Updated `SeoMeta` model with a mutator for page attribute normalization.
+- Improved `SeoServiceProvider` and Blade directives for seamless SEO rendering.
+
+---
+
 ## [v1.2.1] - 2025-09-30
 
 ### Route Bug Fixed
