@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [v1.4.0] - 2026-08-06
+
+### Fixed
+
+- Seo Manager supports Laravel version 13 in this update
+
 ## [v1.3.0] - 2025-10-09
 
 ### Added
